@@ -73,7 +73,7 @@ PRIMARY KEY (id)
 CREATE TABLE rating (
   id tinyint(4) AUTO_INCREMENT NOT NULL,
   moodys_rating VARCHAR(125),
-  sand_p_rating VARCHAR(125),
+  stand_poor_rating VARCHAR(125),
   fitch_rating VARCHAR(125),
   order_number tinyint,
   PRIMARY KEY (id)
