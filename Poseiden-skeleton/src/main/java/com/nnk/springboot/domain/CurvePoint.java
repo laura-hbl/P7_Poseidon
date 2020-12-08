@@ -32,4 +32,10 @@ public class CurvePoint {
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
 
+    public CurvePoint(Integer id, Integer curveId, BigDecimal term, BigDecimal value) {
+        this.id = id;
+        this.curveId = curveId;
+        this.term = term;
+        this.value = value;
+    }
 }

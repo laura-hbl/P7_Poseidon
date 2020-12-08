@@ -67,5 +67,12 @@ public class Trade {
     private String sourceListId;
 
     private String side;
+
+    public Trade(Integer id, String account, String type, BigDecimal buyQuantity) {
+        this.id = id;
+        this.account = account;
+        this.type = type;
+        this.buyQuantity = buyQuantity;
+    }
 }
 

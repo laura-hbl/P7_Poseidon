@@ -1,11 +1,10 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @Getter(AccessLevel.PUBLIC)
@@ -17,15 +16,18 @@ public class User {
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
-    @NotBlank(message = "Username is mandatory")
     private String username;
 
-    @NotBlank(message = "Password is mandatory")
     private String password;
 
-    @NotBlank(message = "FullName is mandatory")
     private String fullname;
 
-    @NotBlank(message = "Role is mandatory")
     private String role;
+
+    public User(String username, String password, String fullname, String role) {
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.role = role;
+    }
 }

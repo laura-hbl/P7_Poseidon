@@ -70,4 +70,10 @@ public class BidList {
 
     private String side;
 
+    public BidList(Integer id, String account, String type, BigDecimal bidQuantity) {
+        this.id = id;
+        this.account = account;
+        this.type = type;
+        this.bidQuantity = bidQuantity;
+    }
 }
