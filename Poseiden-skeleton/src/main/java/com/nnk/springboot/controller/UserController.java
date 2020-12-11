@@ -30,6 +30,7 @@ public class UserController {
 
         model.addAttribute("users", userService.getAllUser());
 
+        LOGGER.info("GET Request on /user/list - SUCCESS");
         return "user/list";
     }
 
@@ -39,6 +40,7 @@ public class UserController {
 
         model.addAttribute("user", new UserDTO());
 
+        LOGGER.info("GET Request on /user/add - SUCCESS");
         return "user/add";
     }
 
@@ -51,6 +53,7 @@ public class UserController {
         }
         userService.addUser(userDTO);
 
+        LOGGER.info("POST Request on /user/validate with username {} - SUCCESS");
         return "redirect:/user/list";
     }
 
@@ -61,6 +64,7 @@ public class UserController {
         UserDTO user = userService.getUserById(userId);
         model.addAttribute("user", user);
 
+        LOGGER.info("GET Request on /user/update/{id} - SUCCESS");
         return "user/update";
     }
 
@@ -74,6 +78,7 @@ public class UserController {
         }
         userService.updateUser(userId, userDTO);
 
+        LOGGER.info("POST Request on /user/update/{id} - SUCCESS");
         return "redirect:/user/list";
     }
 
@@ -83,6 +88,7 @@ public class UserController {
 
         userService.deleteUser(userId);
 
+        LOGGER.info("GET Request on /user/delete/{id} - SUCCESS");
         return "redirect:/user/list";
     }
 }

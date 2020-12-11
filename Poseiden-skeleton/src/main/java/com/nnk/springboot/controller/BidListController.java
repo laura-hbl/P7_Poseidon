@@ -30,58 +30,69 @@ public class BidListController {
 
     @GetMapping("/list")
     public String home(final Model model) {
+        LOGGER.debug("GET Request on /bidList/list");
 
         model.addAttribute("bidLists", bidListService.getAllBidList());
 
+        LOGGER.info("GET Request on /bidList/list - SUCCESS");
         return "bidList/list";
     }
 
     @GetMapping("/add")
     public String addBidForm(final Model model) {
+        LOGGER.debug("GET Request on /bidList/add");
 
         model.addAttribute("bidList", new BidListDTO());
 
+        LOGGER.info("GET Request on /bidList/add - SUCCESS");
         return "bidList/add";
     }
 
     @PostMapping("/validate")
     public String validate(@Valid final BidListDTO bidListDTO, final BindingResult result) {
+        LOGGER.debug("POST Request on /bidList/validate");
 
         if (result.hasErrors()) {
             return "bidList/add";
         }
         bidListService.addBidList(bidListDTO);
 
+        LOGGER.info("POST Request on /bidList/validate - SUCCESS");
         return "redirect:/bidList/list";
     }
 
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") final Integer bidListId, final Model model) {
+        LOGGER.debug("GET Request on /bidList/update/{id} with id : {}", bidListId);
 
         BidListDTO bidList = bidListService.getBidListById(bidListId);
-
         model.addAttribute("bidList", bidList);
 
+        LOGGER.info("GET Request on /bidList/update/{id} - SUCCESS");
         return "bidList/update";
     }
 
     @PostMapping("/update/{id}")
     public String updateBid(@PathVariable("id") final Integer bidListId, @Valid final BidListDTO bidListDTO,
                             final BindingResult result) {
+        LOGGER.debug("POST Request on /bidList/update/{id} with id : {}", bidListId);
 
         if (result.hasErrors()) {
             return "bidList/update";
         }
         bidListService.updateBidList(bidListId, bidListDTO);
 
+        LOGGER.info("POST Request on /bidList/update/{id} - SUCCESS");
         return "redirect:/bidList/list";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteBid(@PathVariable("id") final Integer bidListId) {
+        LOGGER.debug("GET Request on /bidList/delete/{id} with id : {}", bidListId);
 
         bidListService.deleteBidList(bidListId);
 
+        LOGGER.info("GET Request on /bidList/delete/{id} - SUCCESS");
         return "redirect:/bidList/list";
     }
 }

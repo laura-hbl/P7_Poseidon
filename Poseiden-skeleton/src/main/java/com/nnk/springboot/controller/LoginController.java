@@ -43,14 +43,17 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(final Model model) {
+        LOGGER.debug("GET Request on /login");
 
         model.addAttribute("loginRequest", new LoginDTO());
 
+        LOGGER.info("GET Request on /login - SUCCESS");
         return "/login";
     }
 
     @PostMapping("/signin")
     public String authenticateUser(@Valid final LoginDTO loginRequest, final HttpServletResponse response) {
+        LOGGER.debug("GET Request on /signin");
 
         Authentication authentication = auth.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -62,23 +65,29 @@ public class LoginController {
         cookie.setMaxAge(3600);
         response.addCookie(cookie);
 
+        LOGGER.info("GET Request on /signin - SUCCESS");
         return "redirect:/bidList/list";
     }
 
-    @GetMapping("secure/article-details")
-    public ModelAndView getAllUserArticles() {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("users", userService.getAllUser());
-        mav.setViewName("user/list");
-        return mav;
+    @GetMapping("/secure/article-details")
+    public String getAllUserArticles(final Model model) {
+        LOGGER.debug("GET Request on /secure/article-details");
+
+        model.addAttribute("users", userService.getAllUser());
+
+        LOGGER.info("GET Request on /secure/article-details - SUCCESS");
+        return "user/list";
     }
 
-    @GetMapping("error")
+    @GetMapping("/403")
     public ModelAndView error() {
-        ModelAndView mav = new ModelAndView();
-        String errorMessage = "You are not authorized for the requested data.";
-        mav.addObject("errorMsg", errorMessage);
-        mav.setViewName("403");
-        return mav;
+        LOGGER.debug("GET Request on /403");
+
+        ModelAndView model = new ModelAndView();
+        model.addObject("msg", "You do not have permission to access this page!");
+        model.setViewName("403");
+
+        LOGGER.info("GET Request on /403 - SUCCESS");
+        return model;
     }
 }
