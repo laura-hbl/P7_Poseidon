@@ -1,6 +1,6 @@
 package com.nnk.springboot.dto;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -9,10 +9,10 @@ import lombok.*;
 @Setter(AccessLevel.PUBLIC)
 public class LoginDTO {
 
-    @NotBlank
+    @NotEmpty(message = "Type is mandatory")
     private String username;
 
-    @NotBlank
+    @NotEmpty(message = "Type is mandatory")
     private String password;
 
 }
