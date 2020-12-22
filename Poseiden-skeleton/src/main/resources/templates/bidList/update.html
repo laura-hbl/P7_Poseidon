@@ -1,24 +1,38 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+    <meta charset="utf-8"/>
+    <title>Update Bid</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
-	<div class="row">
-		<h2>Update Bid</h2>
-	</div>
+    <div class="row">
+        <h2>Update Bid</h2>
+    </div>
 
-	<div class="row">
-		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.bidListId})}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Bid, there are 2 buttons: Update data and Cancel to the list Bid
-			 -->
-		</form>
-	</div>
+    <div class="row">
+        <form action="#" th:action="@{/bidList/update/{id}(id=${bidListDTO.id})}" th:object="${bidListDTO}"
+              method="post" class="form-horizontal" style="width: 100%">
+            <p>
+                Account:<br/> <input type="text" th:field="*{account}"/><br/>
+                <span style="color: red;" th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></span>
+            </p>
+            <p>
+                Type:<br/> <input type="text" th:field="*{type}" class="medium"/><br/>
+                <span style="color: red;" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
+            </p>
+            <p>
+                Bid quantity: <br/> <input type="text" th:field="*{bidQuantity}"/><br/>
+                <span style="color: red;" th:if="${#fields.hasErrors('bidQuantity')}" th:errors="*{bidQuantity}"></span>
+            </p>
+            <p>
+                <a href="/bidList/list" class="btn btn-danger btn-sm">Cancel</a>
+                <button type="submit" class="btn btn-primary btn-sm">Update BidList</button>
+            </p>
+        </form>
+    </div>
 
 </div>
 </body>
