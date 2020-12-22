@@ -1,25 +1,45 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8"/>
-	<title>Home</title>
-	<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+    <meta charset="utf-8"/>
+    <title>Update Rating</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
 
-	<div class="row">
-		<h2>Update Rating</h2>
-	</div>
+    <div class="row">
+        <h2>Update Rating</h2>
+    </div>
 
-	<div class="row">
-		<form action="#" th:action="@{/rating/update/{id}(id=${rating.id})}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Rating, there are 2 buttons: Update data and Cancel to the Rating
-			 -->
-		</form>
-	</div>
+    <div class="row">
+        <form action="#" th:action="@{/rating/update/{id}(id=${ratingDTO.id})}" th:object="${ratingDTO}" method="post"
+              class="form-horizontal" style="width: 100%">
+            <p>
+                MoodysRating:<br/> <input type="text" th:field="*{moodysRating}"/><br/>
+                <span style="color: red;" th:if="${#fields.hasErrors('moodysRating')}"
+                      th:errors="*{moodysRating}"></span>
+            </p>
+            <p>
+                SandPRating:<br/> <input type="text" th:field="*{standPoorRating}"/><br/>
+                <span style="color: red;" th:if="${#fields.hasErrors('standPoorRating')}"
+                      th:errors="*{standPoorRating}"></span>
+            </p>
+            <p>
+                FitchRating: <br/> <input type="text" th:field="*{fitchRating}"/><br/>
+                <span style="color: red;" th:if="${#fields.hasErrors('fitchRating')}" th:errors="*{fitchRating}"></span>
+            </p>
+            <p>
+                Order: <br/> <input type="text" th:field="*{orderNumber}"/><br/>
+                <span style="color: red;" th:if="${#fields.hasErrors('orderNumber')}" th:errors="*{orderNumber}"></span>
+            </p>
+            <p>
+                <a href="/rating/list" class="btn btn-danger btn-sm">Cancel</a>
+                <button type="submit" class="btn btn-primary btn-sm">Update Rating</button>
+            </p>
+        </form>
+    </div>
 
 </div>
 </body>

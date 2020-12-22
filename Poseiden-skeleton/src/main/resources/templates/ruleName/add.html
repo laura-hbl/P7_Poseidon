@@ -1,26 +1,57 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+    <meta charset="utf-8"/>
+    <title>Add New Rule</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
 
-	<div class="row">
-		<h2>Add New Rule</h2>
-	</div>
+    <div class="row">
+        <h2>Add New Rule</h2>
+    </div>
 
-	<div class="row">
-		<form action="#" th:action="@{/ruleName/validate}" th:object="${ruleName}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of RuleName, there are 2 buttons: Save data and Cancel to the list RuleName
-			 -->
-
-		</form>
-	</div>
+    <div class="row">
+        <form action="#" th:action="@{/ruleName/validate}" th:object="${ruleNameDTO}" method="post"
+              class="form-horizontal" style="width: 100%">
+            <p>
+                Name:<br/> <input type="text" th:field="*{name}"/><br/>
+                <span style="color: red;" th:if="${#fields.hasErrors('name')}"
+                      th:errors="*{name}"></span>
+            </p>
+            <p>
+                Description:<br/> <input type="text" th:field="*{description}"/><br/>
+                <span style="color: red;" th:if="${#fields.hasErrors('description')}"
+                      th:errors="*{description}"></span>
+            </p>
+            <p>
+                Json: <br/> <input type="text" th:field="*{json}"/><br/>
+                <span style="color: red;" th:if="${#fields.hasErrors('json')}"
+                      th:errors="*{json}"></span>
+            </p>
+            <p>
+                Template: <br/> <input type="text" th:field="*{template}"/><br/>
+                <span style="color: red;" th:if="${#fields.hasErrors('template')}"
+                      th:errors="*{template}"></span>
+            </p>
+            <p>
+                Sql: <br/> <input type="text" th:field="*{sqlStr}"/><br/>
+                <span style="color: red;" th:if="${#fields.hasErrors('sqlStr')}"
+                      th:errors="*{sqlStr}"></span>
+            </p>
+            <p>
+                SqlPart: <br/> <input type="text" th:field="*{sqlPart}"/><br/>
+                <span style="color: red;" th:if="${#fields.hasErrors('sqlPart')}"
+                      th:errors="*{sqlPart}"></span>
+            </p>
+            <p>
+                <a href="/ruleName/list" class="btn btn-danger btn-sm">Cancel</a>
+                <button type="submit" class="btn btn-primary btn-sm">Add RuleName</button>
+            </p>
+        </form>
+    </div>
 
 </div>
 </body>
