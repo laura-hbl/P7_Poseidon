@@ -41,7 +41,7 @@ public class RuleNameController {
     public String addRuleForm(final Model model) {
         LOGGER.debug("GET Request on /ruleName/add");
 
-        model.addAttribute("ruleName", new RuleNameDTO());
+        model.addAttribute("ruleNameDTO", new RuleNameDTO());
 
         LOGGER.info("GET Request on /ruleName/add - SUCCESS");
         return "ruleName/add";
@@ -65,7 +65,7 @@ public class RuleNameController {
         LOGGER.debug("GET Request on /ruleName/update/{id} with id : {}", ruleNameId);
 
         RuleNameDTO ruleName = ruleNameService.getRuleNameById(ruleNameId);
-        model.addAttribute("ruleName", ruleName);
+        model.addAttribute("ruleNameDTO", ruleName);
 
         LOGGER.info("GET Request on /ruleName/update/{id} - SUCCESS");
         return "ruleName/update";

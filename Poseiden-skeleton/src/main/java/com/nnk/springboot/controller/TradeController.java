@@ -41,7 +41,7 @@ public class TradeController {
     public String addTrade(final Model model) {
         LOGGER.debug("GET Request on /trade/add");
 
-        model.addAttribute("trade", new TradeDTO());
+        model.addAttribute("tradeDTO", new TradeDTO());
 
         LOGGER.info("GET Request on /trade/add - SUCCESS");
         return "trade/add";
@@ -65,7 +65,7 @@ public class TradeController {
         LOGGER.debug("GET Request on /trade/update/{id} with id : {}", tradeId);
 
         TradeDTO trade = tradeService.getTradeById(tradeId);
-        model.addAttribute("trade", trade);
+        model.addAttribute("tradeDTO", trade);
 
         LOGGER.info("GET Request on /trade/update/{id} - SUCCESS");
         return "trade/update";

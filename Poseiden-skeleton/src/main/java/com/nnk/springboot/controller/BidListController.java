@@ -42,16 +42,19 @@ public class BidListController {
     public String addBidForm(final Model model) {
         LOGGER.debug("GET Request on /bidList/add");
 
-        model.addAttribute("bidList", new BidListDTO());
+        model.addAttribute("bidListDTO", new BidListDTO());
 
         LOGGER.info("GET Request on /bidList/add - SUCCESS");
         return "bidList/add";
     }
 
     @PostMapping("/validate")
-    public String validate(@Valid final BidListDTO bidListDTO, final BindingResult result) {
+    public String validate(@Valid final BidListDTO bidListDTO, final BindingResult result,  final Model model) {
         LOGGER.debug("POST Request on /bidList/validate");
 
+        if (result.toString().contains("NumberFormatException")) {
+            return "redirect:/bidList/add?error";
+        }
         if (result.hasErrors()) {
             return "bidList/add";
         }
@@ -66,7 +69,7 @@ public class BidListController {
         LOGGER.debug("GET Request on /bidList/update/{id} with id : {}", bidListId);
 
         BidListDTO bidList = bidListService.getBidListById(bidListId);
-        model.addAttribute("bidList", bidList);
+        model.addAttribute("bidListDTO", bidList);
 
         LOGGER.info("GET Request on /bidList/update/{id} - SUCCESS");
         return "bidList/update";

@@ -41,7 +41,7 @@ public class RatingController {
     public String addRatingForm(final Model model) {
         LOGGER.debug("GET Request on /rating/add");
 
-        model.addAttribute("rating", new RatingDTO());
+        model.addAttribute("ratingDTO", new RatingDTO());
 
         LOGGER.info("GET Request on /rating/add - SUCCESS");
         return "rating/add";
@@ -65,7 +65,7 @@ public class RatingController {
         LOGGER.debug("GET Request on /rating/update/{id} with id : {}", ratingId);
 
         RatingDTO rating = ratingService.getRatingById(ratingId);
-        model.addAttribute("rating", rating);
+        model.addAttribute("ratingDTO", rating);
 
         LOGGER.info("GET Request on /rating/update/{id} - SUCCESS");
         return "rating/update";

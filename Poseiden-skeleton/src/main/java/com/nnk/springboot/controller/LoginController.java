@@ -15,9 +15,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController {
@@ -45,15 +45,20 @@ public class LoginController {
     public String login(final Model model) {
         LOGGER.debug("GET Request on /login");
 
-        model.addAttribute("loginRequest", new LoginDTO());
+        model.addAttribute("loginDTO", new LoginDTO());
 
         LOGGER.info("GET Request on /login - SUCCESS");
         return "/login";
     }
 
     @PostMapping("/signin")
-    public String authenticateUser(@Valid final LoginDTO loginRequest, final HttpServletResponse response) {
+    public String authenticateUser(@Valid final LoginDTO loginRequest, final BindingResult result,
+                                   final HttpServletResponse response) {
         LOGGER.debug("GET Request on /signin");
+
+        if (result.hasErrors()) {
+            return "/login";
+        }
 
         Authentication authentication = auth.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -69,25 +74,10 @@ public class LoginController {
         return "redirect:/bidList/list";
     }
 
-    @GetMapping("/secure/article-details")
-    public String getAllUserArticles(final Model model) {
-        LOGGER.debug("GET Request on /secure/article-details");
-
-        model.addAttribute("users", userService.getAllUser());
-
-        LOGGER.info("GET Request on /secure/article-details - SUCCESS");
-        return "user/list";
-    }
-
     @GetMapping("/403")
-    public ModelAndView error() {
+    public String error() {
         LOGGER.debug("GET Request on /403");
 
-        ModelAndView model = new ModelAndView();
-        model.addObject("msg", "You do not have permission to access this page!");
-        model.setViewName("403");
-
-        LOGGER.info("GET Request on /403 - SUCCESS");
-        return model;
+        return "/403";
     }
 }

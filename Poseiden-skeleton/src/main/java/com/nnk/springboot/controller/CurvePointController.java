@@ -41,7 +41,7 @@ public class CurvePointController {
     public String addCurvePointForm(final Model model) {
         LOGGER.debug("GET Request on /curvePoint/add");
 
-        model.addAttribute("curvePoint", new CurvePointDTO());
+        model.addAttribute("curvePointDTO", new CurvePointDTO());
 
         LOGGER.info("GET Request on /curvePoint/add - SUCCESS");
         return "curvePoint/add";
@@ -65,7 +65,7 @@ public class CurvePointController {
         LOGGER.debug("GET Request on /curvePoint/update/{id} with id : {}", curvePointId);
 
         CurvePointDTO curvePoint = curvePointService.getCurvePointById(curvePointId);
-        model.addAttribute("curvePoint", curvePoint);
+        model.addAttribute("curvePointDTO", curvePoint);
 
         LOGGER.info("GET Request on /curvePoint/update/{id} - SUCCESS");
         return "curvePoint/update";

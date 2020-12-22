@@ -38,7 +38,7 @@ public class UserController {
     public String addUser(final Model model) {
         LOGGER.debug("GET Request on /user/add");
 
-        model.addAttribute("user", new UserDTO());
+        model.addAttribute("userDTO", new UserDTO());
 
         LOGGER.info("GET Request on /user/add - SUCCESS");
         return "user/add";
@@ -62,7 +62,7 @@ public class UserController {
         LOGGER.debug("GET Request on /user/update/{id} with id : {}", userId);
 
         UserDTO user = userService.getUserById(userId);
-        model.addAttribute("user", user);
+        model.addAttribute("userDTO", user);
 
         LOGGER.info("GET Request on /user/update/{id} - SUCCESS");
         return "user/update";
