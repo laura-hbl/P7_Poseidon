@@ -45,8 +45,13 @@ public class BidListService implements IBidListService {
     public BidListDTO updateBidList(final int bidListId, final BidListDTO bidListDTO) {
         LOGGER.debug("Inside BidListService.updateBidList");
 
-        bidListDTO.setId(bidListId);
-        BidList bidList = modelConverter.toBidList(bidListDTO);
+        BidList bidList = bidListRepository.findById(bidListId).orElseThrow(() ->
+                new ResourceNotFoundException("No bidList registered with this id"));
+
+        bidList.setAccount(bidListDTO.getAccount());
+        bidList.setType(bidListDTO.getType());
+        bidList.setBidQuantity(bidListDTO.getBidQuantity());
+
         BidList bidListUpdated = bidListRepository.save(bidList);
 
         return dtoConverter.toBidListDTO(bidListUpdated);
@@ -55,10 +60,10 @@ public class BidListService implements IBidListService {
     public void deleteBidList(final int bidListId) {
         LOGGER.debug("Inside BidListService.deleteBidList");
 
-        BidList bidList = bidListRepository.findById(bidListId).orElseThrow(() ->
+        bidListRepository.findById(bidListId).orElseThrow(() ->
                 new ResourceNotFoundException("No bidList registered with this id"));
 
-        bidListRepository.delete(bidList);
+        bidListRepository.deleteById(bidListId);
     }
 
     public BidListDTO getBidListById(final int bidListId) {

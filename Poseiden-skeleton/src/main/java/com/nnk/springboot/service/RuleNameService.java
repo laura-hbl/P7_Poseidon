@@ -45,8 +45,16 @@ public class RuleNameService implements IRuleNameService {
     public RuleNameDTO updateRuleName(final int ruleNameId, final RuleNameDTO ruleNameDTO) {
         LOGGER.debug("Inside RuleNameService.updateRuleName");
 
-        ruleNameDTO.setId(ruleNameId);
-        RuleName ruleName = modelConverter.toRuleName(ruleNameDTO);
+        RuleName ruleName = ruleNameRepository.findById(ruleNameId).orElseThrow(() ->
+                new ResourceNotFoundException("No ruleName registered with this id"));
+
+        ruleName.setName(ruleNameDTO.getName());
+        ruleName.setDescription(ruleNameDTO.getDescription());
+        ruleName.setTemplate(ruleNameDTO.getTemplate());
+        ruleName.setJson(ruleNameDTO.getJson());
+        ruleName.setSqlStr(ruleNameDTO.getSqlStr());
+        ruleName.setSqlPart(ruleNameDTO.getSqlPart());
+
         RuleName ruleNameUpdated = ruleNameRepository.save(ruleName);
 
         return dtoConverter.toRuleNameDTO(ruleNameUpdated);
@@ -55,10 +63,10 @@ public class RuleNameService implements IRuleNameService {
     public void deleteRuleName(final int ruleNameId) {
         LOGGER.debug("Inside RuleNameService.deleteRuleName");
 
-        RuleName ruleName = ruleNameRepository.findById(ruleNameId).orElseThrow(() ->
+        ruleNameRepository.findById(ruleNameId).orElseThrow(() ->
                 new ResourceNotFoundException("No RuleName registered with this id"));
 
-        ruleNameRepository.delete(ruleName);
+        ruleNameRepository.deleteById(ruleNameId);
 
     }
 

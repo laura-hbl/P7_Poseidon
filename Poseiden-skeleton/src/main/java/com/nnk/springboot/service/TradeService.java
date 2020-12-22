@@ -45,8 +45,13 @@ public class TradeService implements ITradeService {
     public TradeDTO updateTrade(final int tradeId, final TradeDTO tradeDTO) {
         LOGGER.debug("Inside TradeService.updateTrade");
 
-        tradeDTO.setId(tradeId);
-        Trade trade = modelConverter.toTrade(tradeDTO);
+        Trade trade = tradeRepository.findById(tradeId).orElseThrow(() ->
+                new ResourceNotFoundException("No trade registered with this id"));
+
+        trade.setAccount(tradeDTO.getAccount());
+        trade.setType(tradeDTO.getType());
+        trade.setBuyQuantity(tradeDTO.getBuyQuantity());
+
         Trade tradeUpdated = tradeRepository.save(trade);
 
         return dtoConverter.toTradeDTO(tradeUpdated);
@@ -55,10 +60,10 @@ public class TradeService implements ITradeService {
     public void deleteTrade(final int tradeId) {
         LOGGER.debug("Inside TradeService.deleteTrade");
 
-        Trade trade = tradeRepository.findById(tradeId).orElseThrow(() ->
+        tradeRepository.findById(tradeId).orElseThrow(() ->
                 new ResourceNotFoundException("No trade registered with this id"));
 
-        tradeRepository.delete(trade);
+        tradeRepository.deleteById(tradeId);
     }
 
     public TradeDTO getTradeById(final int tradeId) {

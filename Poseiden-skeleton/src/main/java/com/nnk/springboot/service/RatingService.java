@@ -34,7 +34,7 @@ public class RatingService implements IRatingService {
     }
 
     public RatingDTO addRating(final RatingDTO ratingDTO) {
-        LOGGER.debug("Inside RatingService.updateRating");
+        LOGGER.debug("Inside RatingService.addRating");
 
         Rating rating = modelConverter.toRating(ratingDTO);
         Rating ratingUpdated = ratingRepository.save(rating);
@@ -45,8 +45,14 @@ public class RatingService implements IRatingService {
     public RatingDTO updateRating(final int ratingId, final RatingDTO ratingDTO) {
         LOGGER.debug("Inside RatingService.updateRating");
 
-        ratingDTO.setId(ratingId);
-        Rating rating = modelConverter.toRating(ratingDTO);
+        Rating rating = ratingRepository.findById(ratingId).orElseThrow(() ->
+                new ResourceNotFoundException("No rating registered with this id"));
+
+        rating.setMoodysRating(ratingDTO.getMoodysRating());
+        rating.setStandPoorRating(ratingDTO.getStandPoorRating());
+        rating.setFitchRating(ratingDTO.getFitchRating());
+        rating.setOrderNumber(ratingDTO.getOrderNumber());
+
         Rating ratingUpdated = ratingRepository.save(rating);
 
         return dtoConverter.toRatingDTO(ratingUpdated);
@@ -55,10 +61,10 @@ public class RatingService implements IRatingService {
     public void deleteRating(final int ratingId) {
         LOGGER.debug("Inside RatingService.deleteRating");
 
-        Rating rating = ratingRepository.findById(ratingId).orElseThrow(() ->
+        ratingRepository.findById(ratingId).orElseThrow(() ->
                 new ResourceNotFoundException("No Rating registered with this id"));
 
-        ratingRepository.delete(rating);
+        ratingRepository.deleteById(ratingId);
     }
 
     public RatingDTO getRatingById(final int ratingId) {

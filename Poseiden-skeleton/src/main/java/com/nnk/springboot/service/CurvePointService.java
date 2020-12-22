@@ -45,8 +45,13 @@ public class CurvePointService implements ICurvePointService {
     public CurvePointDTO updateCurvePoint(final int curvePointId, final CurvePointDTO curvePointDTO) {
         LOGGER.debug("Inside CurvePointService.updateCurvePoint");
 
-        curvePointDTO.setId(curvePointId);
-        CurvePoint curvePoint = modelConverter.toCurvePoint(curvePointDTO);
+        CurvePoint curvePoint = curvePointRepository.findById(curvePointId).orElseThrow(() ->
+                new ResourceNotFoundException("No curvePoint registered with this id"));
+
+        curvePoint.setCurveId(curvePointDTO.getCurveId());
+        curvePoint.setTerm(curvePointDTO.getTerm());
+        curvePoint.setValue(curvePointDTO.getValue());
+
         CurvePoint curvePointUpdated = curvePointRepository.save(curvePoint);
 
         return dtoConverter.toCurvePointDTO(curvePointUpdated);
@@ -55,10 +60,10 @@ public class CurvePointService implements ICurvePointService {
     public void deleteCurvePoint(final int curvePointId) {
         LOGGER.debug("Inside CurvePointService.deleteCurvePoint");
 
-        CurvePoint curvePoint = curvePointRepository.findById(curvePointId).orElseThrow(() ->
+        curvePointRepository.findById(curvePointId).orElseThrow(() ->
                 new ResourceNotFoundException("No CurvePoint registered with this id"));
 
-        curvePointRepository.delete(curvePoint);
+        curvePointRepository.deleteById(curvePointId);
     }
 
     public CurvePointDTO getCurvePointById(final int curvePointId) {
