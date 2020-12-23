@@ -116,7 +116,7 @@ public class RatingControllerTest {
 
         String content = result.getResponse().getContentAsString();
 
-        assertThat(content).contains("");
+        assertThat(content).contains("The value must be positive");
         verify(ratingService, times(0)).addRating(any(RatingDTO.class));
     }
 
