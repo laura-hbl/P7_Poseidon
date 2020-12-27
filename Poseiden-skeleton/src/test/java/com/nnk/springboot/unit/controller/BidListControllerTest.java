@@ -61,9 +61,9 @@ public class BidListControllerTest {
     }
 
     @Test
-    @Tag("Home")
-    @DisplayName("When home request, then display bidList list form")
-    public void whenHomeRequest_thenDisplayBidListListForm() throws Exception {
+    @Tag("ShowBidList")
+    @DisplayName("When showBidList request, then display bidList list")
+    public void whenShowBidListRequest_thenDisplayBidListList() throws Exception {
         when(bidListService.getAllBidList()).thenReturn(Arrays.asList(bidList1DTO, bidList2DTO));
         mockMvc.perform(MockMvcRequestBuilders.get("/bidList/list"))
                 .andExpect(model().attributeExists("bidLists"))
@@ -74,9 +74,9 @@ public class BidListControllerTest {
     }
 
     @Test
-    @Tag("AddBidList")
-    @DisplayName("When addBidList request, then display BidList add form")
-    public void whenAddBidListRequest_thenDisplayBidListAddForm() throws Exception {
+    @Tag("AddBidListForm")
+    @DisplayName("When addBidListForm request, then display BidList add form")
+    public void whenAddBidListFormRequest_thenDisplayBidListAddForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/bidList/add"))
                 .andExpect(model().attributeExists("bidListDTO"))
                 .andExpect(view().name("bidList/add"))
@@ -141,7 +141,7 @@ public class BidListControllerTest {
     @Test
     @Tag("ShowUpdateForm")
     @DisplayName("When showUpdateForm request, then display BidList update form")
-    public void whenShowUpdateFormRequest_thenDisplaybidListUpdateForm() throws Exception {
+    public void whenShowUpdateFormRequest_thenDisplayBidListUpdateForm() throws Exception {
         when(bidListService.getBidListById(1)).thenReturn(bidList1DTO);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/bidList/update/1"))

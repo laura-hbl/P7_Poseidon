@@ -61,9 +61,9 @@ public class CurvePointControllerTest {
     }
 
     @Test
-    @Tag("Home")
-    @DisplayName("When home request, then display curvePoint list form")
-    public void whenHomeRequest_thenDisplayCurvePointListForm() throws Exception {
+    @Tag("ShowCurvePointList")
+    @DisplayName("When showCurvePointList request, then display curvePoint list")
+    public void whenShowCurvePointListRequest_thenDisplayCurvePointList() throws Exception {
         when(curvePointService.getAllCurvePoint()).thenReturn(Arrays.asList(curvePoint1DTO, curvePoint2DTO));
         mockMvc.perform(MockMvcRequestBuilders.get("/curvePoint/list"))
                 .andExpect(model().attributeExists("curvePoints"))
@@ -74,9 +74,9 @@ public class CurvePointControllerTest {
     }
 
     @Test
-    @Tag("AddCurvePoint")
-    @DisplayName("When addCurvePoint request, then display CurvePoint add form")
-    public void whenAddCurvePointRequest_thenDisplayCurvePointAddForm() throws Exception {
+    @Tag("AddCurvePointForm")
+    @DisplayName("When addCurvePointForm request, then display CurvePoint add form")
+    public void whenAddCurvePointFormRequest_thenDisplayCurvePointAddForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/curvePoint/add"))
                 .andExpect(model().attributeExists("curvePointDTO"))
                 .andExpect(view().name("curvePoint/add"))

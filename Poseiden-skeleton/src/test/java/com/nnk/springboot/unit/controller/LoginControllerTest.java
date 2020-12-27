@@ -15,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -25,9 +24,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
@@ -58,13 +54,14 @@ public class LoginControllerTest {
     @BeforeEach
     public void setUp() {
         loginDTO = new LoginDTO("Laura", "password123A*");
+
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
     @Test
-    @Tag("Login")
-    @DisplayName("When login request, then display login form")
-    public void whenLoginRequest_thenDisplayLoginForm() throws Exception {
+    @Tag("ShowLoginForm")
+    @DisplayName("When showLoginForm request, then display login form")
+    public void whenShowLoginFormRequest_thenDisplayLoginForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/login"))
                 .andExpect(model().attributeExists("loginDTO"))
                 .andExpect(view().name("/login"))
@@ -75,8 +72,6 @@ public class LoginControllerTest {
     @Tag("AuthenticateUser")
     @DisplayName("Given valid credentials, when authenticateUser request, then redirect to bid list page")
     void givenValidCredentials_whenAuthenticateUser_thenRedirectToBidListPage() throws Exception {
-        when(jwtUtils.generateJwtToken(any(Authentication.class))).thenReturn(anyString());
-
         mockMvc.perform(MockMvcRequestBuilders.post("/signin")
                 .accept(MediaType.ALL)
                 .param("username", loginDTO.getUsername())
@@ -101,13 +96,12 @@ public class LoginControllerTest {
         String content = result.getResponse().getContentAsString();
 
         assertThat(content).contains("Username is mandatory");
-        verify(jwtUtils, times(0)).generateJwtToken(any(Authentication.class));
     }
 
     @Test
-    @Tag("Error - 403")
-    @DisplayName("When error request, then display error form")
-    public void whenErrorRequest_thenDisplayLoginForm() throws Exception {
+    @Tag("ShowError403")
+    @DisplayName("When showError403 request, then display error page")
+    public void whenErrorRequest_thenDisplayError403Page() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/403"))
                 .andExpect(view().name("/403"))
                 .andExpect(status().isOk());

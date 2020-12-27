@@ -60,9 +60,9 @@ public class RatingControllerTest {
     }
 
     @Test
-    @Tag("Home")
-    @DisplayName("When home request, then display rating list form")
-    public void whenHomeRequest_thenDisplayRatingListForm() throws Exception {
+    @Tag("ShowRatingList")
+    @DisplayName("When showRatingList request, then display rating list")
+    public void whenShowRatingListRequest_thenDisplayRatingList() throws Exception {
         when(ratingService.getAllRating()).thenReturn(Arrays.asList(rating1DTO, rating2DTO));
         mockMvc.perform(MockMvcRequestBuilders.get("/rating/list"))
                 .andExpect(model().attributeExists("ratings"))
@@ -73,9 +73,9 @@ public class RatingControllerTest {
     }
 
     @Test
-    @Tag("AddRating")
-    @DisplayName("When addRating request, then display Rating add form")
-    public void whenAddRatingRequest_thenDisplayRatingAddForm() throws Exception {
+    @Tag("AddRatingForm")
+    @DisplayName("When addRatingForm request, then display Rating add form")
+    public void whenAddRatingFormRequest_thenDisplayRatingAddForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/rating/add"))
                 .andExpect(model().attributeExists("ratingDTO"))
                 .andExpect(view().name("rating/add"))

@@ -61,9 +61,9 @@ public class RuleNameControllerTest {
     }
 
     @Test
-    @Tag("Home")
-    @DisplayName("When home request, then display ruleName list form")
-    public void whenHomeRequest_thenDisplayRuleNameListForm() throws Exception {
+    @Tag("ShowRuleNameList")
+    @DisplayName("When showRuleNameList request, then display ruleName list")
+    public void whenShowRuleNameListRequest_thenDisplayRuleNameList() throws Exception {
         when(ruleNameService.getAllRuleName()).thenReturn(Arrays.asList(ruleName1DTO, ruleName2DTO));
         mockMvc.perform(MockMvcRequestBuilders.get("/ruleName/list"))
                 .andExpect(model().attributeExists("ruleNames"))
@@ -74,9 +74,9 @@ public class RuleNameControllerTest {
     }
 
     @Test
-    @Tag("AddRuleName")
-    @DisplayName("When addRuleName request, then display RuleName add form")
-    public void whenAddRuleNameRequest_thenDisplayRuleNameAddForm() throws Exception {
+    @Tag("AddRuleNameForm")
+    @DisplayName("When addRuleNameForm request, then display RuleName add form")
+    public void whenAddRuleNameFormRequest_thenDisplayRuleNameAddForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/ruleName/add"))
                 .andExpect(model().attributeExists("ruleNameDTO"))
                 .andExpect(view().name("ruleName/add"))

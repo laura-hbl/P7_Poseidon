@@ -60,9 +60,9 @@ public class TradeControllerTest {
     }
 
     @Test
-    @Tag("Home")
-    @DisplayName("When home request, then display trade list form")
-    public void whenHomeRequest_thenDisplayTradeListForm() throws Exception {
+    @Tag("ShowTradeList")
+    @DisplayName("When showTradeList request, then display trade list")
+    public void whenShowTradeListRequest_thenDisplayTradeList() throws Exception {
         when(tradeService.getAllTrade()).thenReturn(Arrays.asList(trade1DTO, trade2DTO));
         mockMvc.perform(MockMvcRequestBuilders.get("/trade/list"))
                 .andExpect(model().attributeExists("trades"))
@@ -73,9 +73,9 @@ public class TradeControllerTest {
     }
 
     @Test
-    @Tag("AddTrade")
-    @DisplayName("When addTrade request, then display Trade add form")
-    public void whenAddTradeRequest_thenDisplayTradeAddForm() throws Exception {
+    @Tag("AddTradeForm")
+    @DisplayName("When addTradeForm request, then display Trade add form")
+    public void whenAddTradeFormRequest_thenDisplayTradeAddForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/trade/add"))
                 .andExpect(model().attributeExists("tradeDTO"))
                 .andExpect(view().name("trade/add"))

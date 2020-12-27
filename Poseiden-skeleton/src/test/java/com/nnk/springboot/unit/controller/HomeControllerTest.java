@@ -41,16 +41,16 @@ public class HomeControllerTest {
     }
 
     @Test
-    @Tag("Home")
-    @DisplayName("When home request, then display home form")
-    public void whenHomeRequest_thenDisplayHomeForm() throws Exception {
+    @Tag("ShowHomePage")
+    @DisplayName("When showHomePage request, then display home page")
+    public void whenShowHomePageRequest_thenDisplayHomePage() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(view().name("home"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    @Tag("AdminHome")
+    @Tag("ShowAdminHomePage")
     @DisplayName("When adminHome request, then redirect to bid list page")
     public void whenAdminHomeRequest_thenRedirectToBidListPage() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/admin/home"))

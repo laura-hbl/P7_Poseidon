@@ -59,9 +59,9 @@ public class UserControllerTest {
     }
 
     @Test
-    @Tag("Home")
-    @DisplayName("When home request, then display user list form")
-    public void whenHomeRequest_thenDisplayUserListForm() throws Exception {
+    @Tag("ShowUserList")
+    @DisplayName("When showUserList request, then display user list")
+    public void whenShowUserListRequest_thenDisplayUserList() throws Exception {
         when(userService.getAllUser()).thenReturn(Arrays.asList(user1DTO, user2DTO));
         mockMvc.perform(MockMvcRequestBuilders.get("/user/list"))
                 .andExpect(model().attributeExists("users"))
@@ -72,9 +72,9 @@ public class UserControllerTest {
     }
 
     @Test
-    @Tag("AddUser")
-    @DisplayName("When addUser request, then display user add form")
-    public void whenAddUserRequest_thenDisplayUserAddForm() throws Exception {
+    @Tag("AddUserForm")
+    @DisplayName("When addUserForm request, then display user add form")
+    public void whenAddUserFormRequest_thenDisplayUserAddForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/user/add"))
                 .andExpect(model().attributeExists("userDTO"))
                 .andExpect(view().name("user/add"))
