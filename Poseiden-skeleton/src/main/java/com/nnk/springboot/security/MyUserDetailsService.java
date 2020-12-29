@@ -16,6 +16,7 @@ import java.util.Arrays;
 
 /**
  * Custom implementation of UserDetailsService interface.
+ * Contains one method that permit to load UserDetails by username.
  *
  * @author Laura Habdul
  */
@@ -55,7 +56,7 @@ public class MyUserDetailsService implements UserDetailsService {
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
-            LOGGER.error("Invalid username or password");
+            LOGGER.error("Request - FAILED: Invalid username or password");
             throw new UsernameNotFoundException("Invalid username or password");
         }
 

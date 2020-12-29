@@ -57,16 +57,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
+    /**
+     * Creates an instance of AuthTokenFilter.
+     *
+     * @return AuthTokenFilter instance
+     */
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
     }
 
+    /**
+     * Configures the AuthenticationManagerBuilder to use the password encoder and the implementation of
+     * UserDetailsService for configuring DaoAuthenticationProvider.
+     *
+     * @param authenticationManagerBuilder AuthenticationManagerBuilder instance
+     */
     @Override
     public void configure(final AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    /**
+     * Overrides authenticationManagerBean() method so the authentication manager is available in app context.
+     *
+     * @return AuthenticationManager reference
+     */
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -92,7 +108,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/bidList/**", "/rating/**", "/ruleName/**", "/trade/**", "/curvePoint/**")
+                .antMatchers("/bidList/**", "/rating/**", "/ruleName/**", "/trade/**", "/curvePoint/**")
                 .authenticated()
                 .antMatchers("/user/**", "/admin/**").hasAuthority("ADMIN")
                 .anyRequest().permitAll()
@@ -151,12 +167,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     /**
      * Handles access denied.
      *
-     * @param response       HttpServletResponse object
-     * @param request        HttpServletRequest object
-     * @param e              AccessDeniedException object
+     * @param response HttpServletResponse object
+     * @param request  HttpServletRequest object
+     * @param e        AccessDeniedException object
      */
     private void accessDeniedHandler(final HttpServletRequest request, final HttpServletResponse response,
-                                             final AccessDeniedException e)
+                                     final AccessDeniedException e)
             throws IOException {
         LOGGER.error("Access denied error: {}", e.getMessage());
 

@@ -14,17 +14,42 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Contains methods that allow interaction between Rating business logic and Rating repository.
+ *
+ * @author Laura Habdul
+ */
 @Service
 public class RatingService implements IRatingService {
 
+    /**
+     * CurvePointService logger.
+     */
     private static final Logger LOGGER = LogManager.getLogger(RatingService.class);
 
+    /**
+     * RatingRepository instance.
+     */
     private final RatingRepository ratingRepository;
 
+    /**
+     * DTOConverter instance.
+     */
     private final DTOConverter dtoConverter;
 
+    /**
+     * ModelConverter instance.
+     */
     private final ModelConverter modelConverter;
 
+    /**
+     * Constructor of class RatingService.
+     * Initialize ratingRepository, dtoConverter and modelConverter.
+     *
+     * @param ratingRepository RatingRepository instance
+     * @param dtoConverter     DTOConverter instance
+     * @param modelConverter   ModelConverter instance
+     */
     @Autowired
     public RatingService(final RatingRepository ratingRepository, final DTOConverter dtoConverter,
                          final ModelConverter modelConverter) {
@@ -33,6 +58,13 @@ public class RatingService implements IRatingService {
         this.modelConverter = modelConverter;
     }
 
+    /**
+     * Converts the ratingDTO object to be saved to a Rating Model object, saved it to database by calling
+     * RatingRepository's save method. Then, converts the saved rating to a RatingDTO object.
+     *
+     * @param ratingDTO the rating to be added
+     * @return The rating saved converted to a RatingDTO object
+     */
     public RatingDTO addRating(final RatingDTO ratingDTO) {
         LOGGER.debug("Inside RatingService.addRating");
 
@@ -42,6 +74,15 @@ public class RatingService implements IRatingService {
         return dtoConverter.toRatingDTO(ratingUpdated);
     }
 
+    /**
+     * Checks if the given rating to update is registered by calling RatingRepository's findById method, if so rating
+     * found is updated, then saved to database by calling RatingRepository's save method and converted to a RatingDTO
+     * object. Else, ResourceNotFoundException is thrown.
+     *
+     * @param ratingId  id of the rating to be updated
+     * @param ratingDTO the rating to be updated
+     * @return The rating updated converted to a RatingDTO object
+     */
     public RatingDTO updateRating(final int ratingId, final RatingDTO ratingDTO) {
         LOGGER.debug("Inside RatingService.updateRating");
 
@@ -58,6 +99,12 @@ public class RatingService implements IRatingService {
         return dtoConverter.toRatingDTO(ratingUpdated);
     }
 
+    /**
+     * Checks if the given rating to delete is registered by calling RatingRepository's findById method, if so rating
+     * found is deleted by calling RatingRepository's delete method. Else, ResourceNotFoundException is thrown.
+     *
+     * @param ratingId id of the rating to be deleted
+     */
     public void deleteRating(final int ratingId) {
         LOGGER.debug("Inside RatingService.deleteRating");
 
@@ -67,6 +114,13 @@ public class RatingService implements IRatingService {
         ratingRepository.deleteById(ratingId);
     }
 
+    /**
+     * Calls RatingRepository's findById method to retrieves the rating with the given id and checks if rating exists in
+     * database, if not ResourceNotFoundException is thrown. Then converts the found Rating to RatingDTO object.
+     *
+     * @param ratingId id of the rating to be found
+     * @return The rating found converted to an RatingDTO object
+     */
     public RatingDTO getRatingById(final int ratingId) {
         LOGGER.debug("Inside RatingService.getRatingById");
 
@@ -76,6 +130,12 @@ public class RatingService implements IRatingService {
         return dtoConverter.toRatingDTO(rating);
     }
 
+    /**
+     * Retrieves all ratings by calling RatingRepository's findAll() method and each rating from the list is
+     * converted to an RatingDTO object and added to an ArrayList.
+     *
+     * @return The rating list
+     */
     public List<RatingDTO> getAllRating() {
         LOGGER.debug("Inside RatingService.getAllRating");
 

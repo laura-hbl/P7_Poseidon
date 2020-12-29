@@ -4,34 +4,70 @@ import com.nnk.springboot.domain.*;
 import com.nnk.springboot.dto.*;
 import org.springframework.stereotype.Component;
 
+/**
+ * Allows the conversion of Model class to DTO class.
+ *
+ * @author Laura Habdul
+ */
 @Component
 public class ModelConverter {
 
+    /**
+     * Converts BidListDTO to BidList.
+     *
+     * @param bidListDTO BidListDTO object to convert
+     * @return The BidList object
+     */
     public BidList toBidList(final BidListDTO bidListDTO) {
 
-        return new BidList(bidListDTO.getId(), bidListDTO.getAccount(), bidListDTO.getType(), bidListDTO.getBidQuantity());
+        return new BidList(bidListDTO.getId(), bidListDTO.getAccount(), bidListDTO.getType(),
+                bidListDTO.getBidQuantity());
     }
 
+    /**
+     * Converts CurvePointDTO to CurvePoint.
+     *
+     * @param curvePointDTO CurvePointDTO object to convert
+     * @return The CurvePoint object
+     */
     public CurvePoint toCurvePoint(final CurvePointDTO curvePointDTO) {
 
         return new CurvePoint(curvePointDTO.getId(), curvePointDTO.getCurveId(), curvePointDTO.getTerm(),
                 curvePointDTO.getValue());
     }
 
-    public Trade toTrade(TradeDTO tradeDTO) {
+    /**
+     * Converts TradeDTO to Trade.
+     *
+     * @param tradeDTO TradeDTO object to convert
+     * @return The Trade object
+     */
+    public Trade toTrade(final TradeDTO tradeDTO) {
 
         return new Trade(tradeDTO.getId(), tradeDTO.getAccount(), tradeDTO.getType(), tradeDTO.getBuyQuantity());
     }
 
-    public Rating toRating(RatingDTO ratingDTO) {
+    /**
+     * Converts RatingDTO to Rating.
+     *
+     * @param ratingDTO RatingDTO object to convert
+     * @return The Rating object
+     */
+    public Rating toRating(final RatingDTO ratingDTO) {
 
         return new Rating(ratingDTO.getId(), ratingDTO.getMoodysRating(), ratingDTO.getStandPoorRating(),
                 ratingDTO.getFitchRating(), ratingDTO.getOrderNumber());
     }
 
-    public RuleName toRuleName(RuleNameDTO ruleNameDTO) {
+    /**
+     * Converts RuleNameDTO to RuleName.
+     *
+     * @param ruleNameDTO RuleNameDTO object to convert
+     * @return The RuleName object
+     */
+    public RuleName toRuleName(final RuleNameDTO ruleNameDTO) {
 
         return new RuleName(ruleNameDTO.getId(), ruleNameDTO.getName(), ruleNameDTO.getDescription(),
-                ruleNameDTO.getJson(), ruleNameDTO.getTemplate(), ruleNameDTO.getSqlStr(), ruleNameDTO.getSqlStr());
+                ruleNameDTO.getJson(), ruleNameDTO.getTemplate(), ruleNameDTO.getSqlStr(), ruleNameDTO.getSqlPart());
     }
 }

@@ -23,4 +23,8 @@ public class BidListConstraints {
      */
     public static final int TYPE_MAX_SIZE = 30;
 
+    /**
+     * Minimum value authorized for bid quantity.
+     */
+    public static final int BID_QUANTITY_MIN_VALUE = 0;
 }

@@ -22,4 +22,9 @@ public class TradeConstraints {
      * Maximum number of characters required for type.
      */
     public static final int TYPE_MAX_SIZE = 30;
+
+    /**
+     * Minimum value authorized for buy quantity.
+     */
+    public static final int BUY_QUANTITY_MIN_VALUE = 0;
 }

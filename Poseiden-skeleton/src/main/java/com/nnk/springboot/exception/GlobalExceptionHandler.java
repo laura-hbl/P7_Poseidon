@@ -10,6 +10,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.io.IOException;
 
+/**
+ * Contains methods that handles exceptions across the whole application.
+ *
+ * @author Laura Habdul
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 

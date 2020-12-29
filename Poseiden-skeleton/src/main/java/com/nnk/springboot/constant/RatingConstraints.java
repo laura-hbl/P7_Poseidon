@@ -27,4 +27,9 @@ public class RatingConstraints {
      * Maximum number of characters required for moody's rating.
      */
     public static final int MOODY_RATING_MAX_SIZE = 125;
+
+    /**
+     * Minimum value authorized for order number.
+     */
+    public static final int ORDER_NUMBER_MIN_VALUE = 0;
 }
