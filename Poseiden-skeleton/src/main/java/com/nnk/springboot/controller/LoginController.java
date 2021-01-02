@@ -62,12 +62,12 @@ public class LoginController {
 
     /**
      * Constructor of class CurvePointController.
-     * Initialize curvePointService.
+     * Initialize userService, jwtUtils, auth, myUserDetailsService.
      *
-     * @param userService          IUserService's implement class reference.
-     * @param jwtUtils             IUserService's implement class reference.
-     * @param auth                 IUserService's implement class reference.
-     * @param myUserDetailsService MyUserDetailsService instance.
+     * @param userService          IUserService's implement class reference
+     * @param jwtUtils             JwtUtils instance
+     * @param auth                 AuthenticationManager's implement class reference
+     * @param myUserDetailsService MyUserDetailsService instance
      */
     @Autowired
     public LoginController(final IUserService userService, final JwtUtils jwtUtils, final AuthenticationManager auth,
@@ -97,7 +97,7 @@ public class LoginController {
     /**
      * Authenticates an user and provides a Token.
      *
-     * @param loginDTO user's credentials
+     * @param loginDTO user's login credentials
      * @param result   holds the result of validation and binding and contains errors that may have occurred
      * @param response HttpServletResponse instance
      * @return The reference to the login HTML page if result has no errors. Else, redirects to /bidList/list endpoint
@@ -111,7 +111,6 @@ public class LoginController {
             LOGGER.error("Error(s): {}", result);
             return "/login";
         }
-
         Authentication authentication = auth.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
 

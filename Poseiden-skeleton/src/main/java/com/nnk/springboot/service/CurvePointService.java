@@ -60,14 +60,14 @@ public class CurvePointService implements ICurvePointService {
     }
 
     /**
-     * Converts the curvePointDTO object to be saved to a CurvePoint Model object, saved it to database by calling
+     * Converts the curvePointDTO object to add to a CurvePoint Model object, saved it to database by calling
      * CurvePointRepository's save method. Then, converts the saved curvePoint to a CurvePointDTO object.
      *
      * @param curvePointDTO the curvePoint to be added
      * @return The curvePoint saved converted to a CurvePointDTO object
      */
     public CurvePointDTO addCurvePoint(final CurvePointDTO curvePointDTO) {
-        LOGGER.debug("Inside CurvePointService.updateCurvePoint");
+        LOGGER.debug("Inside CurvePointService.addCurvePoint");
 
         CurvePoint curvePoint = modelConverter.toCurvePoint(curvePointDTO);
         curvePoint.setCreationDate(LocalDateTime.now());
@@ -77,9 +77,9 @@ public class CurvePointService implements ICurvePointService {
     }
 
     /**
-     * Checks if the given curvePoint to update is registered by calling CurvePointRepository's findById method, if so
-     * curvePoint found is updated, then saved to database by calling CurvePointRepository's save method and converted
-     * to a CurvePointDTO object. Else, ResourceNotFoundException is thrown.
+     * Checks if the given curvePoint to update is registered by calling CurvePointRepository's findById method,
+     * if so curvePoint found is updated, then saved to database by calling CurvePointRepository's save method
+     * and converted to a CurvePointDTO object. Else, ResourceNotFoundException is thrown.
      *
      * @param curvePointId  id of the curvePoint to be updated
      * @param curvePointDTO the curvePoint to be updated
@@ -101,9 +101,9 @@ public class CurvePointService implements ICurvePointService {
     }
 
     /**
-     * Checks if the given curvePoint to delete is registered by calling CurvePointRepository's findById method, if
-     * so curvePoint found is deleted by calling CurvePointRepository's delete method. Else, ResourceNotFoundException
-     * is thrown.
+     * Checks if the given curvePoint to delete is registered by calling CurvePointRepository's findById
+     * method, if so curvePoint found is deleted by calling CurvePointRepository's delete method. Else,
+     * ResourceNotFoundException is thrown.
      *
      * @param curvePointId id of the curvePoint to be deleted
      */
@@ -111,15 +111,15 @@ public class CurvePointService implements ICurvePointService {
         LOGGER.debug("Inside CurvePointService.deleteCurvePoint");
 
         curvePointRepository.findById(curvePointId).orElseThrow(() ->
-                new ResourceNotFoundException("No CurvePoint registered with this id"));
+                new ResourceNotFoundException("No curvePoint registered with this id"));
 
         curvePointRepository.deleteById(curvePointId);
     }
 
     /**
      * Calls CurvePointRepository's findById method to retrieves the curvePoint with the given id and checks if
-     * curvePoint exists in database, if not ResourceNotFoundException is thrown. Then converts the found CurvePoint
-     * to CurvePointDTO object.
+     * curvePoint exists in database, if so converts the found CurvePoint to CurvePointDTO object. Else,
+     * ResourceNotFoundException is thrown.
      *
      * @param curvePointId id of the curvePoint to be found
      * @return The curvePoint found converted to an CurvePointDTO object
@@ -134,8 +134,8 @@ public class CurvePointService implements ICurvePointService {
     }
 
     /**
-     * Retrieves all curvePoints by calling CurvePointRepository's findAll() method and each curvePoint from the list
-     * is converted to an CurvePointDTO object and added to an ArrayList.
+     * Retrieves all curvePoints by calling CurvePointRepository's findAll() method and each curvePoint from
+     * the list is converted to an CurvePointDTO object and added to an ArrayList.
      *
      * @return The curvePoint list
      */

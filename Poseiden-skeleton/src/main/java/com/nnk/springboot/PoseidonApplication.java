@@ -13,12 +13,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableEncryptableProperties
 public class PoseidonApplication {
 
-	/**
-	 * Starts Poseidon application.
-	 *
-	 * @param args no argument
-	 */
-	public static void main(final String[] args) {
-		SpringApplication.run(PoseidonApplication.class, args);
-	}
+    /**
+     * Starts Poseidon application.
+     *
+     * @param args no argument
+     */
+    public static void main(final String[] args) {
+        SpringApplication.run(PoseidonApplication.class, args);
+    }
 }

@@ -69,7 +69,7 @@ public class JwtUtils {
      * Validates a JWT.
      *
      * @param authToken the JWT to validate
-     * @return true if the JWT is valid or false is not valid
+     * @return True if the JWT is valid or false is not valid
      */
     public boolean validateJwtToken(final String authToken) {
         LOGGER.debug("Inside JwtUtils's validateJwtToken method");

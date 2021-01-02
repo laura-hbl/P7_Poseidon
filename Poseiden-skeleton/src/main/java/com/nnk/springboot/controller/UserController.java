@@ -35,7 +35,7 @@ public class UserController {
      * Constructor of class UserController.
      * Initialize userService.
      *
-     * @param userService IUserService's implement class reference.
+     * @param userService IUserService's implement class reference
      */
     @Autowired
     public UserController(final IUserService userService) {
@@ -45,8 +45,8 @@ public class UserController {
     /**
      * Displays user list.
      *
-     * @param model makes user list objects available to user/list HTML page.
-     * @return The reference to the user/list HTML page.
+     * @param model makes user list objects available to user/list HTML page
+     * @return The reference to the user/list HTML page
      */
     @GetMapping("/list")
     public String showUserList(final Model model) {
@@ -57,7 +57,6 @@ public class UserController {
         LOGGER.info("GET Request on /user/list - SUCCESS");
         return "user/list";
     }
-
 
     /**
      * Displays form for adding a new user.
@@ -115,7 +114,7 @@ public class UserController {
     }
 
     /**
-     * Updates an stored user.
+     * Updates a saved user.
      *
      * @param userId  id of the user to be updated
      * @param userDTO the user to be updated
@@ -138,10 +137,10 @@ public class UserController {
     }
 
     /**
-     * Deletes an stored user.
+     * Deletes a saved user.
      *
      * @param userId id of the user to be deleted
-     * @return Redirects to /user/list endpoint
+     * @return The redirect to /user/list endpoint
      */
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") final Integer userId) {

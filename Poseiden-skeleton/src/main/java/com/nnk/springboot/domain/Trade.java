@@ -139,9 +139,9 @@ public class Trade {
      *
      * @param account     account of the trade
      * @param type        type of the trade
-     * @param buyQuantity buy quantity of the trade.
+     * @param buyQuantity buy quantity of the trade
      */
-    public Trade(String account, String type, BigDecimal buyQuantity) {
+    public Trade(final String account, final String type, final BigDecimal buyQuantity) {
         this.account = account;
         this.type = type;
         this.buyQuantity = buyQuantity;

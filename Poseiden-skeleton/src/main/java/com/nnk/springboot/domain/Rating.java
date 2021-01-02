@@ -48,7 +48,16 @@ public class Rating {
     @Column(name = "order_number")
     private Integer orderNumber;
 
-    public Rating(String moodysRating, String standPoorRating, String fitchRating, Integer orderNumber) {
+    /**
+     * Constructor of class Rating.
+     * Initialize moodysRating, standPoorRating and orderNumber.
+     *
+     * @param moodysRating    rating of Moody
+     * @param standPoorRating rating of Fitch
+     * @param orderNumber     order number of the rating
+     */
+    public Rating(final String moodysRating, final String standPoorRating, final String fitchRating,
+                  final Integer orderNumber) {
         this.moodysRating = moodysRating;
         this.standPoorRating = standPoorRating;
         this.fitchRating = fitchRating;

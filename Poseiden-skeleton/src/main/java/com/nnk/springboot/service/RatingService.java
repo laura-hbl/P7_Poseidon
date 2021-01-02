@@ -23,7 +23,7 @@ import java.util.List;
 public class RatingService implements IRatingService {
 
     /**
-     * CurvePointService logger.
+     * RatingService logger.
      */
     private static final Logger LOGGER = LogManager.getLogger(RatingService.class);
 
@@ -59,7 +59,7 @@ public class RatingService implements IRatingService {
     }
 
     /**
-     * Converts the ratingDTO object to be saved to a Rating Model object, saved it to database by calling
+     * Converts the ratingDTO object to add to a Rating Model object, saved it to database by calling
      * RatingRepository's save method. Then, converts the saved rating to a RatingDTO object.
      *
      * @param ratingDTO the rating to be added
@@ -75,9 +75,9 @@ public class RatingService implements IRatingService {
     }
 
     /**
-     * Checks if the given rating to update is registered by calling RatingRepository's findById method, if so rating
-     * found is updated, then saved to database by calling RatingRepository's save method and converted to a RatingDTO
-     * object. Else, ResourceNotFoundException is thrown.
+     * Checks if the given rating to update is registered by calling RatingRepository's findById method, if so
+     * rating found is updated, then saved to database by calling RatingRepository's save method and converted
+     * to a RatingDTO object. Else, ResourceNotFoundException is thrown.
      *
      * @param ratingId  id of the rating to be updated
      * @param ratingDTO the rating to be updated
@@ -100,8 +100,9 @@ public class RatingService implements IRatingService {
     }
 
     /**
-     * Checks if the given rating to delete is registered by calling RatingRepository's findById method, if so rating
-     * found is deleted by calling RatingRepository's delete method. Else, ResourceNotFoundException is thrown.
+     * Checks if the given rating to delete is registered by calling RatingRepository's findById method, if so
+     * rating found is deleted by calling RatingRepository's delete method. Else, ResourceNotFoundException is
+     * thrown.
      *
      * @param ratingId id of the rating to be deleted
      */
@@ -109,14 +110,15 @@ public class RatingService implements IRatingService {
         LOGGER.debug("Inside RatingService.deleteRating");
 
         ratingRepository.findById(ratingId).orElseThrow(() ->
-                new ResourceNotFoundException("No Rating registered with this id"));
+                new ResourceNotFoundException("No rating registered with this id"));
 
         ratingRepository.deleteById(ratingId);
     }
 
     /**
-     * Calls RatingRepository's findById method to retrieves the rating with the given id and checks if rating exists in
-     * database, if not ResourceNotFoundException is thrown. Then converts the found Rating to RatingDTO object.
+     * Calls RatingRepository's findById method to retrieves the rating with the given id and checks if rating
+     * exists in database, if so converts the found Rating to RatingDTO object. Else, ResourceNotFoundException
+     * is thrown.
      *
      * @param ratingId id of the rating to be found
      * @return The rating found converted to an RatingDTO object

@@ -19,7 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 /**
- * Custom AuthTokenFilter class that extends OncePerRequestFilter and override doFilterInternal() method.
+ * Custom AuthTokenFilter class that extends OncePerRequestFilter and overrides doFilterInternal() method.
  * Filter that executes once per request.
  *
  * @author Laura Habdul

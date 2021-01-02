@@ -149,7 +149,7 @@ public class BidList {
      * @param type        type of the bidList
      * @param bidQuantity quantity of bid
      */
-    public BidList(String account, String type, BigDecimal bidQuantity) {
+    public BidList(final String account, final String type, final BigDecimal bidQuantity) {
         this.account = account;
         this.type = type;
         this.bidQuantity = bidQuantity;

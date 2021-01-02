@@ -23,7 +23,7 @@ import java.util.List;
 public class TradeService implements ITradeService {
 
     /**
-     * CurvePointService logger.
+     * TradeService logger.
      */
     private static final Logger LOGGER = LogManager.getLogger(TradeService.class);
 
@@ -59,7 +59,7 @@ public class TradeService implements ITradeService {
     }
 
     /**
-     * Converts the tradeDTO object to be saved to a Trade Model object, saved it to database by calling
+     * Converts the tradeDTO object to add to a Trade Model object, saved it to database by calling
      * TradeRepository's save method. Then, converts the saved trade to a TradeDTO object.
      *
      * @param tradeDTO the trade to be added
@@ -75,9 +75,9 @@ public class TradeService implements ITradeService {
     }
 
     /**
-     * Checks if the given trade to update is registered by calling TradeRepository's findById method, if so trade found
-     * is updated, then saved to database by calling TradeRepository's save method and converted to a TradeDTO object.
-     * Else, ResourceNotFoundException is thrown.
+     * Checks if the given trade to update is registered by calling TradeRepository's findById method, if so
+     * trade found is updated, then saved to database by calling TradeRepository's save method and converted to
+     * a TradeDTO object. Else, ResourceNotFoundException is thrown.
      *
      * @param tradeId  id of the trade to be updated
      * @param tradeDTO the trade to be updated
@@ -99,8 +99,9 @@ public class TradeService implements ITradeService {
     }
 
     /**
-     * Checks if the given trade to delete is registered by calling TradeRepository's findById method, if so trade found
-     * is deleted by calling TradeRepository's delete method. Else, ResourceNotFoundException is thrown.
+     * Checks if the given trade to delete is registered by calling TradeRepository's findById method, if so
+     * trade found is deleted by calling TradeRepository's delete method. Else, ResourceNotFoundException is
+     * thrown.
      *
      * @param tradeId id of the trade to be deleted
      */
@@ -114,8 +115,8 @@ public class TradeService implements ITradeService {
     }
 
     /**
-     * Calls TradeRepository's findById method to retrieves the trade with the given id and checks if trade exists in
-     * database, if not ResourceNotFoundException is thrown. Then converts the found Trade to TradeDTO object.
+     * Calls TradeRepository's findById method to retrieves the trade with the given id and checks if trade exists
+     * in  database, if so converts the found Trade to TradeDTO object. Else, ResourceNotFoundException is thrown.
      *
      * @param tradeId id of the trade to be found
      * @return The trade found converted to an TradeDTO object

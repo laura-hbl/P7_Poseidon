@@ -38,7 +38,7 @@ public class RatingController {
      * Constructor of class RatingController.
      * Initialize ratingService.
      *
-     * @param ratingService IRatingService's implement class reference.
+     * @param ratingService IRatingService's implement class reference
      */
     @Autowired
     public RatingController(final IRatingService ratingService) {
@@ -48,7 +48,7 @@ public class RatingController {
     /**
      * Displays rating list.
      *
-     * @param model makes rating list objects available to rating/list HTML page.
+     * @param model makes rating list objects available to rating/list HTML page
      * @return The reference to the rating/list HTML page.
      */
     @GetMapping("/list")
@@ -102,7 +102,7 @@ public class RatingController {
      * Displays a form to update an existing rating.
      *
      * @param ratingId id of the rating to be updated
-     * @param model    makes the rating object to be updated available to user/update HTML page
+     * @param model    makes the rating object to be updated available to rating/update HTML page
      * @return The reference to the rating/update HTML page
      */
     @GetMapping("/update/{id}")
@@ -117,11 +117,11 @@ public class RatingController {
     }
 
     /**
-     * Updates a stored rating.
+     * Updates a saved rating.
      *
-     * @param ratingId id of the rating to be updated
-     * @param ratingId the rating to be updated
-     * @param result   holds the result of validation and binding and contains errors that may have occurred
+     * @param ratingId  id of the rating to be updated
+     * @param ratingDTO the rating to be updated
+     * @param result    holds the result of validation and binding and contains errors that may have occurred
      * @return The reference to the rating/update HTML page if result has errors. Else, redirects to
      * /rating/list endpoint
      */
@@ -141,10 +141,10 @@ public class RatingController {
     }
 
     /**
-     * Deletes a stored rating.
+     * Deletes a saved rating.
      *
      * @param ratingId id of the rating to be deleted
-     * @return Redirects to /rating/list endpoint
+     * @return The redirect to /rating/list endpoint
      */
     @GetMapping("/delete/{id}")
     public String deleteRating(@PathVariable("id") final Integer ratingId) {

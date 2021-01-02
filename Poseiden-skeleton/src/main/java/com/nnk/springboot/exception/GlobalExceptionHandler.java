@@ -26,7 +26,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * Handles exception of the specific type DataAlreadyRegisteredException.
      *
-     * @param ex      DataAlreadyRegisteredException object
+     * @param ex       DataAlreadyRegisteredException object
      * @param response HttpServletResponse object
      */
     @ExceptionHandler(DataAlreadyRegisteredException.class)

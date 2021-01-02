@@ -23,7 +23,7 @@ import java.util.List;
 public class RuleNameService implements IRuleNameService {
 
     /**
-     * CurvePointService logger.
+     * RuleNameService logger.
      */
     private static final Logger LOGGER = LogManager.getLogger(RuleNameService.class);
 
@@ -59,7 +59,7 @@ public class RuleNameService implements IRuleNameService {
     }
 
     /**
-     * Converts the ruleNameDTO object to be saved to a RuleName Model object, saved it to database by calling
+     * Converts the ruleNameDTO object to add to a RuleName Model object, saved it to database by calling
      * RuleNameRepository's save method. Then, converts the saved ruleName to a RuleNameDTO object.
      *
      * @param ruleNameDTO the ruleName to be added
@@ -75,8 +75,8 @@ public class RuleNameService implements IRuleNameService {
     }
 
     /**
-     * Checks if the given ruleName to update is registered by calling RuleNameRepository's findById method, if
-     * so ruleName found is updated, then saved to database by calling RuleNameRepository's save method and converted
+     * Checks if the given ruleName to update is registered by calling RuleNameRepository's findById method, if so
+     * ruleName found is updated, then saved to database by calling RuleNameRepository's save method and converted
      * to a RuleNameDTO object. Else, ResourceNotFoundException is thrown.
      *
      * @param ruleNameId  id of the ruleName to be updated
@@ -102,8 +102,8 @@ public class RuleNameService implements IRuleNameService {
     }
 
     /**
-     * Checks if the given ruleName to delete is registered by calling RuleNameRepository's findById method, if so
-     * ruleName found is deleted by calling RuleNameRepository's delete method. Else, ResourceNotFoundException
+     * Checks if the given ruleName to delete is registered by calling RuleNameRepository's findById method, if
+     * so ruleName found is deleted by calling RuleNameRepository's delete method. Else, ResourceNotFoundException
      * is thrown.
      *
      * @param ruleNameId id of the ruleName to be deleted
@@ -112,7 +112,7 @@ public class RuleNameService implements IRuleNameService {
         LOGGER.debug("Inside RuleNameService.deleteRuleName");
 
         ruleNameRepository.findById(ruleNameId).orElseThrow(() ->
-                new ResourceNotFoundException("No RuleName registered with this id"));
+                new ResourceNotFoundException("No ruleName registered with this id"));
 
         ruleNameRepository.deleteById(ruleNameId);
 
@@ -120,8 +120,8 @@ public class RuleNameService implements IRuleNameService {
 
     /**
      * Calls RuleNameRepository's findById method to retrieves the ruleName with the given id and checks if ruleName
-     * exists in database, if not ResourceNotFoundException is thrown. Then converts the found RuleName to
-     * RuleNameDTO object.
+     * exists in database, if so converts the found RuleName to RuleNameDTO object. Else, ResourceNotFoundException
+     * is thrown.
      *
      * @param ruleNameId id of the ruleName to be found
      * @return The ruleName found converted to an RuleNameDTO object

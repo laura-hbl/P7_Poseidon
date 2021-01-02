@@ -53,7 +53,7 @@ public class User {
      * @param fullname full name of the user
      * @param role     role of the user
      */
-    public User(String username, String password, String fullname, String role) {
+    public User(final String username, final String password, final String fullname, final String role) {
         this.username = username;
         this.password = password;
         this.fullname = fullname;

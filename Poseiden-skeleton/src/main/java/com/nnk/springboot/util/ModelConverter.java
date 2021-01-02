@@ -5,7 +5,7 @@ import com.nnk.springboot.dto.*;
 import org.springframework.stereotype.Component;
 
 /**
- * Allows the conversion of Model class to DTO class.
+ * Allows the conversion of DTO class to Model class.
  *
  * @author Laura Habdul
  */

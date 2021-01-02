@@ -38,7 +38,7 @@ public class RuleNameController {
      * Constructor of class RuleNameController.
      * Initialize ruleNameService.
      *
-     * @param ruleNameService IRuleNameService's implement class reference.
+     * @param ruleNameService IRuleNameService's implement class reference
      */
     @Autowired
     public RuleNameController(final IRuleNameService ruleNameService) {
@@ -48,8 +48,8 @@ public class RuleNameController {
     /**
      * Displays ruleName list.
      *
-     * @param model makes ruleName list objects available to ruleName/list HTML page.
-     * @return The reference to the ruleName/list HTML page.
+     * @param model makes ruleName list objects available to ruleName/list HTML page
+     * @return The reference to the ruleName/list HTML page
      */
     @GetMapping("/list")
     public String showRuleNameList(final Model model) {
@@ -104,7 +104,7 @@ public class RuleNameController {
      * Displays a form to update an existing ruleName.
      *
      * @param ruleNameId id of the ruleName to be updated
-     * @param model      makes the ruleName object to be updated available to user/update HTML page
+     * @param model      makes the ruleName object to be updated available to ruleName/update HTML page
      * @return The reference to the ruleName/update HTML page
      */
     @GetMapping("/update/{id}")
@@ -119,11 +119,11 @@ public class RuleNameController {
     }
 
     /**
-     * Updates a stored ruleName.
+     * Updates a saved ruleName.
      *
-     * @param ruleNameId id of the ruleName to be updated
-     * @param ruleNameId the ruleName to be updated
-     * @param result     holds the result of validation and binding and contains errors that may have occurred
+     * @param ruleNameId  id of the ruleName to be updated
+     * @param ruleNameDTO the ruleName to be updated
+     * @param result      holds the result of validation and binding and contains errors that may have occurred
      * @return The reference to the ruleName/update HTML page if result has errors. Else, redirects to
      * /ruleName/list endpoint
      */
@@ -143,10 +143,10 @@ public class RuleNameController {
     }
 
     /**
-     * Deletes a stored ruleName.
+     * Deletes a saved ruleName.
      *
      * @param ruleNameId id of the ruleName to be deleted
-     * @return Redirects to /ruleName/list endpoint
+     * @return The redirect to /ruleName/list endpoint
      */
     @GetMapping("/delete/{id}")
     public String deleteRuleName(@PathVariable("id") final Integer ruleNameId) {

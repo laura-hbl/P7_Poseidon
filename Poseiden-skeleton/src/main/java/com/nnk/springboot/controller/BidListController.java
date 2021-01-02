@@ -33,9 +33,9 @@ public class BidListController {
 
     /**
      * Constructor of class BidListController.
-     * Initialize personService.
+     * Initialize bidListService.
      *
-     * @param bidListService IBidListService's implement class reference.
+     * @param bidListService IBidListService's implement class reference
      */
     @Autowired
     public BidListController(final IBidListService bidListService) {
@@ -45,8 +45,8 @@ public class BidListController {
     /**
      * Displays bidList list.
      *
-     * @param model makes bidList list objects available to bidList/list HTML page.
-     * @return The reference to the bidList/list HTML page.
+     * @param model makes bidList list objects available to bidList/list HTML page
+     * @return The reference to the bidList/list HTML page
      */
     @GetMapping("/list")
     public String showBidList(final Model model) {
@@ -100,7 +100,7 @@ public class BidListController {
      * Displays a form to update an existing bidList.
      *
      * @param bidListId id of the bidList to be updated
-     * @param model     makes the bidList object to be updated available to user/update HTML page
+     * @param model     makes the bidList object to be updated available to bidList/update HTML page
      * @return The reference to the bidList/update HTML page
      */
     @GetMapping("/update/{id}")
@@ -115,11 +115,11 @@ public class BidListController {
     }
 
     /**
-     * Updates a stored bidList.
+     * Updates a saved bidList.
      *
-     * @param bidListId id of the bidList to be updated
-     * @param bidListId the bidList to be updated
-     * @param result    holds the result of validation and binding and contains errors that may have occurred
+     * @param bidListId  id of the bidList to be updated
+     * @param bidListDTO the bidList to be updated
+     * @param result     holds the result of validation and binding and contains errors that may have occurred
      * @return The reference to the bidList/update HTML page if result has errors. Else, redirects to
      * /bidList/list endpoint
      */
@@ -139,10 +139,10 @@ public class BidListController {
     }
 
     /**
-     * Deletes a stored bidList.
+     * Deletes a saved bidList.
      *
      * @param bidListId id of the bidList to be deleted
-     * @return Redirects to /bidList/list endpoint
+     * @return The redirect to /bidList/list endpoint
      */
     @GetMapping("/delete/{id}")
     public String deleteBid(@PathVariable("id") final Integer bidListId) {

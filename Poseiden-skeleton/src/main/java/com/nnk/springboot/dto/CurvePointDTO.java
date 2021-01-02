@@ -69,6 +69,15 @@ public class CurvePointDTO {
         this.value = value;
     }
 
+    /**
+     * Constructor of class CurvePointDTO.
+     * Initialize id, curveId, term and value.
+     *
+     * @param id      id of curvePoint
+     * @param curveId id of curve
+     * @param term    term of the curvePoint
+     * @param value   value of the curvePoint
+     */
     public CurvePointDTO(final Integer id, final Integer curveId, final BigDecimal term, final BigDecimal value) {
         this.id = id;
         this.curveId = curveId;

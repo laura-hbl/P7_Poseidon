@@ -63,7 +63,7 @@ public class CurvePoint {
      * @param term    term of the curvePoint
      * @param value   value of the curvePoint
      */
-    public CurvePoint(Integer curveId, BigDecimal term, BigDecimal value) {
+    public CurvePoint(final Integer curveId, final BigDecimal term, final BigDecimal value) {
         this.curveId = curveId;
         this.term = term;
         this.value = value;

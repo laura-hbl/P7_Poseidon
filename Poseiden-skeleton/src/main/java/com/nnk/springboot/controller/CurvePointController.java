@@ -38,7 +38,7 @@ public class CurvePointController {
      * Constructor of class CurvePointController.
      * Initialize curvePointService.
      *
-     * @param curvePointService ICurvePointService's implement class reference.
+     * @param curvePointService ICurvePointService's implement class reference
      */
     @Autowired
     public CurvePointController(final ICurvePointService curvePointService) {
@@ -48,8 +48,8 @@ public class CurvePointController {
     /**
      * Displays curvePoint list.
      *
-     * @param model makes curvePoint list objects available to curvePoint/list HTML page.
-     * @return The reference to the curvePoint/list HTML page.
+     * @param model makes curvePoint list objects available to curvePoint/list HTML page
+     * @return The reference to the curvePoint/list HTML page
      */
     @GetMapping("/list")
     public String showCurvePointList(final Model model) {
@@ -103,7 +103,7 @@ public class CurvePointController {
      * Displays a form to update an existing curvePoint.
      *
      * @param curvePointId id of the curvePoint to be updated
-     * @param model        makes the curvePoint object to be updated available to user/update HTML page
+     * @param model        makes the curvePoint object to be updated available to curvePoint/update HTML page
      * @return The reference to the curvePoint/update HTML page
      */
     @GetMapping("/update/{id}")
@@ -118,11 +118,11 @@ public class CurvePointController {
     }
 
     /**
-     * Updates a stored curvePoint.
+     * Updates a saved curvePoint.
      *
-     * @param curvePointId id of the curvePoint to be updated
-     * @param curvePointId the curvePoint to be updated
-     * @param result       holds the result of validation and binding and contains errors that may have occurred
+     * @param curvePointId  id of the curvePoint to be updated
+     * @param curvePointDTO the curvePoint to be updated
+     * @param result        holds the result of validation and binding and contains errors that may have occurred
      * @return The reference to the curvePoint/update HTML page if result has errors. Else, redirects to
      * /curvePoint/list endpoint
      */
@@ -142,10 +142,10 @@ public class CurvePointController {
     }
 
     /**
-     * Deletes a stored curvePoint.
+     * Deletes a saved curvePoint.
      *
      * @param curvePointId id of the curvePoint to be deleted
-     * @return Redirects to /curvePoint/list endpoint
+     * @return The redirect to /curvePoint/list endpoint
      */
     @GetMapping("/delete/{id}")
     public String deleteBid(@PathVariable("id") final Integer curvePointId) {

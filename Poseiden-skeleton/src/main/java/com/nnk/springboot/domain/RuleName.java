@@ -56,8 +56,19 @@ public class RuleName {
     @Column(name = "sql_part")
     private String sqlPart;
 
-
-    public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {
+    /**
+     * Constructor of class RuleName.
+     * Initialize name, description, json, template, sqlStr and sqlPart.
+     *
+     * @param name        name of the ruleName
+     * @param description description of the ruleName
+     * @param json        json of the ruleName
+     * @param template    template of the ruleName
+     * @param sqlStr      SQL str of the ruleName
+     * @param sqlPart     SQL part of the ruleName
+     */
+    public RuleName(final String name, final String description, final String json, final String template,
+                    final String sqlStr, final String sqlPart) {
         this.name = name;
         this.description = description;
         this.json = json;

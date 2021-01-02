@@ -13,32 +13,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-	/**
-	 * HomeController logger.
-	 */
-	private static final Logger LOGGER = LogManager.getLogger(HomeController.class);
+    /**
+     * HomeController logger.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(HomeController.class);
 
-	/**
-	 * Displays user home page.
-	 *
-	 * @return The reference to the home HTML page.
-	 */
-	@GetMapping("/")
-	public String showHomePage() {
-		LOGGER.debug("GET Request on /");
+    /**
+     * Displays user home page.
+     *
+     * @return The reference to the home HTML page
+     */
+    @GetMapping("/")
+    public String showHomePage() {
+        LOGGER.debug("GET Request on /");
 
-		return "home";
-	}
+        return "home";
+    }
 
-	/**
-	 * Displays admin home page.
-	 *
-	 * @return Redirects to /bidList/list endpoint.
-	 */
-	@GetMapping("/admin/home")
-	public String showAdminHomePage() {
-		LOGGER.debug("GET Request on /admin/home");
+    /**
+     * Displays admin home page.
+     *
+     * @return The redirect to /bidList/list endpoint
+     */
+    @GetMapping("/admin/home")
+    public String showAdminHomePage() {
+        LOGGER.debug("GET Request on /admin/home");
 
-		return "redirect:/bidList/list";
-	}
+        return "redirect:/bidList/list";
+    }
 }

@@ -38,7 +38,7 @@ public class TradeController {
      * Constructor of class TradeController.
      * Initialize tradeService.
      *
-     * @param tradeService ITradeService's implement class reference.
+     * @param tradeService ITradeService's implement class reference
      */
     @Autowired
     public TradeController(final ITradeService tradeService) {
@@ -48,7 +48,7 @@ public class TradeController {
     /**
      * Displays trade list.
      *
-     * @param model makes trade list objects available to trade/list HTML page.
+     * @param model makes trade list objects available to trade/list HTML page
      * @return The reference to the trade/list HTML page.
      */
     @GetMapping("/list")
@@ -117,11 +117,11 @@ public class TradeController {
     }
 
     /**
-     * Updates a stored trade.
+     * Updates a saved trade.
      *
-     * @param tradeId id of the trade to be updated
-     * @param tradeId the trade to be updated
-     * @param result  holds the result of validation and binding and contains errors that may have occurred
+     * @param tradeId  id of the trade to be updated
+     * @param tradeDTO the trade to be updated
+     * @param result   holds the result of validation and binding and contains errors that may have occurred
      * @return The reference to the trade/update HTML page if result has errors. Else, redirects to /trade/list endpoint
      */
     @PostMapping("/update/{id}")
@@ -140,10 +140,10 @@ public class TradeController {
     }
 
     /**
-     * Deletes a stored trade.
+     * Deletes a saved trade.
      *
      * @param tradeId id of the trade to be deleted
-     * @return Redirects to /trade/list endpoint
+     * @return The redirects to /trade/list endpoint
      */
     @GetMapping("/delete/{id}")
     public String deleteTrade(@PathVariable("id") final Integer tradeId) {

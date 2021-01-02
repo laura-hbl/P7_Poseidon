@@ -59,14 +59,14 @@ public class BidListService implements IBidListService {
     }
 
     /**
-     * Converts the bidListDTO object to be saved to a BidList Model object, saved it to database by calling
+     * Converts the bidListDTO object to add to a BidList Model object, saved it to database by calling
      * BidListRepository's save method. Then, converts the saved bidList to a BidListDTO object.
      *
      * @param bidListDTO the bidList to be added
      * @return The bidList saved converted to a BidListDTO object
      */
     public BidListDTO addBidList(final BidListDTO bidListDTO) {
-        LOGGER.debug("Inside BidListService.updateBidList");
+        LOGGER.debug("Inside BidListService.addBidList");
 
         BidList bidList = modelConverter.toBidList(bidListDTO);
         BidList bidListSaved = bidListRepository.save(bidList);
@@ -75,9 +75,9 @@ public class BidListService implements IBidListService {
     }
 
     /**
-     * Checks if the given bidList to update is registered by calling BidListRepository's findById method, if so bidList
-     * found is updated, then saved to database by calling BidListRepository's save method and converted to a BidListDTO
-     * object. Else, ResourceNotFoundException is thrown.
+     * Checks if the given bidList to update is registered by calling BidListRepository's findById method, if so
+     * bidList found is updated, then saved to database by calling BidListRepository's save method and converted
+     * to a BidListDTO object. Else, ResourceNotFoundException is thrown.
      *
      * @param bidListId  id of the bidList to be updated
      * @param bidListDTO the bidList to be updated
@@ -99,8 +99,9 @@ public class BidListService implements IBidListService {
     }
 
     /**
-     * Checks if the given bidList to delete is registered by calling BidListRepository's findById method, if so bidList
-     * found is deleted by calling BidListRepository's delete method. Else, ResourceNotFoundException is thrown.
+     * Checks if the given bidList to delete is registered by calling BidListRepository's findById method, if
+     * so bidList found is deleted by calling BidListRepository's delete method. Else, ResourceNotFoundException
+     * is thrown.
      *
      * @param bidListId id of the bidList to be deleted
      */
@@ -114,8 +115,9 @@ public class BidListService implements IBidListService {
     }
 
     /**
-     * Calls BidListRepository's findById method to retrieves the bidList with the given id and checks if bidList exists in
-     * database, if not ResourceNotFoundException is thrown. Then converts the found BidList to BidListDTO object.
+     * Calls BidListRepository's findById method to retrieves the bidList with the given id and checks if bidList
+     * exists in database, if so converts the found BidList to BidListDTO object. Else, ResourceNotFoundException
+     * is thrown.
      *
      * @param bidListId id of the bidList to be found
      * @return The bidList found converted to an BidListDTO object
