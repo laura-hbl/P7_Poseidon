@@ -20,7 +20,7 @@ public class User {
      * Id of the user.
      */
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
@@ -51,7 +51,7 @@ public class User {
      * @param username username of the user.
      * @param password password of the user
      * @param fullname full name of the user
-     * @param role role of the user
+     * @param role     role of the user
      */
     public User(String username, String password, String fullname, String role) {
         this.username = username;

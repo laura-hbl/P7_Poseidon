@@ -47,4 +47,11 @@ public class Rating {
      */
     @Column(name = "order_number")
     private Integer orderNumber;
+
+    public Rating(String moodysRating, String standPoorRating, String fitchRating, Integer orderNumber) {
+        this.moodysRating = moodysRating;
+        this.standPoorRating = standPoorRating;
+        this.fitchRating = fitchRating;
+        this.orderNumber = orderNumber;
+    }
 }

@@ -135,15 +135,13 @@ public class Trade {
 
     /**
      * Constructor of class Trade.
-     * Initialize id, account, type and buyQuantity.
+     * Initialize account, type and buyQuantity.
      *
-     * @param id          id of the trade
      * @param account     account of the trade
      * @param type        type of the trade
      * @param buyQuantity buy quantity of the trade.
      */
-    public Trade(Integer id, String account, String type, BigDecimal buyQuantity) {
-        this.id = id;
+    public Trade(String account, String type, BigDecimal buyQuantity) {
         this.account = account;
         this.type = type;
         this.buyQuantity = buyQuantity;

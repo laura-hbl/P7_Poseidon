@@ -143,15 +143,13 @@ public class BidList {
 
     /**
      * Constructor of class BidList.
-     * Initialize id, account, type and bidQuantity.
+     * Initialize account, type and bidQuantity.
      *
-     * @param id id of the bidList
-     * @param account account of the bidList
-     * @param type type of the bidList
+     * @param account     account of the bidList
+     * @param type        type of the bidList
      * @param bidQuantity quantity of bid
      */
-    public BidList(Integer id, String account, String type, BigDecimal bidQuantity) {
-        this.id = id;
+    public BidList(String account, String type, BigDecimal bidQuantity) {
         this.account = account;
         this.type = type;
         this.bidQuantity = bidQuantity;

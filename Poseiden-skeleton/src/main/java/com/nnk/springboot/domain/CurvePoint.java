@@ -34,7 +34,7 @@ public class CurvePoint {
     private Integer curveId;
 
     /**
-     * Date of the curvePoint.
+     * As of Date of the curvePoint.
      */
     @Column(name = "as_of_date")
     private LocalDateTime asOfDate;
@@ -57,15 +57,13 @@ public class CurvePoint {
 
     /**
      * Constructor of class CurvePoint.
-     * Initialize id, curveId, term and value.
+     * Initialize curveId, term and value.
      *
-     * @param id      id of the curvePoint
      * @param curveId id of curve
      * @param term    term of the curvePoint
      * @param value   value of the curvePoint
      */
-    public CurvePoint(Integer id, Integer curveId, BigDecimal term, BigDecimal value) {
-        this.id = id;
+    public CurvePoint(Integer curveId, BigDecimal term, BigDecimal value) {
         this.curveId = curveId;
         this.term = term;
         this.value = value;
