@@ -68,12 +68,15 @@ public class RuleNameServiceTest {
     @Tag("AddRuleName")
     @DisplayName("Given a ruleName to save, when addRuleName, then RuleName should be saved correctly")
     public void givenARuleName_whenAddRuleName_thenRuleNameShouldBeSavedCorrectly() {
-        when(modelConverter.toRuleName(any(RuleNameDTO.class))).thenReturn(ruleName1);
+        RuleNameDTO ruleNameToAddDTO = new RuleNameDTO("name", "description","json",
+                "template", "sqlStr", "sqlPart");
+        RuleName ruleNameToAdd = new RuleName("name", "description","json",
+                "template", "sqlStr", "sqlPart");
+        when(modelConverter.toRuleName(any(RuleNameDTO.class))).thenReturn(ruleNameToAdd);
         when(ruleNameRepository.save(any(RuleName.class))).thenReturn(ruleName1);
         when(dtoConverter.toRuleNameDTO(any(RuleName.class))).thenReturn(ruleName1DTO);
 
-        RuleNameDTO ruleNameSaved = ruleNameService.addRuleName(new RuleNameDTO("name", "description",
-                "json", "template", "sqlStr", "sqlPart"));
+        RuleNameDTO ruleNameSaved = ruleNameService.addRuleName(ruleNameToAddDTO);
 
         assertThat(ruleNameSaved).isEqualToComparingFieldByField(ruleName1DTO);
         InOrder inOrder = inOrder(ruleNameRepository, dtoConverter, modelConverter);

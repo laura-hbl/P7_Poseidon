@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,10 +55,14 @@ public class CurvePointServiceTest {
 
     @Before
     public void setUp() {
-        curvePoint1DTO = new CurvePointDTO(1, 3, BigDecimal.TEN, BigDecimal.TEN);
-        curvePoint2DTO = new CurvePointDTO(2, 4, BigDecimal.TEN, BigDecimal.TEN);
-        curvePoint1 = new CurvePoint(1, 3, BigDecimal.TEN, BigDecimal.TEN);
-        curvePoint2 = new CurvePoint(2, 4, BigDecimal.TEN, BigDecimal.TEN);
+        curvePoint1DTO = new CurvePointDTO(1, 3,null, BigDecimal.TEN, BigDecimal.TEN,
+                LocalDateTime.of(2019, 12, 22, 11, 23));
+        curvePoint2DTO = new CurvePointDTO(2, 4,null, BigDecimal.TEN, BigDecimal.TEN,
+                LocalDateTime.of(2019, 12, 22, 11, 23));
+        curvePoint1 = new CurvePoint(1, 3, null, BigDecimal.TEN, BigDecimal.TEN,
+                LocalDateTime.of(2019, 12, 22, 11, 23));
+        curvePoint2 = new CurvePoint(2, 4, null, BigDecimal.TEN, BigDecimal.TEN,
+                LocalDateTime.of(2019, 12, 22, 11, 23));
         curvePointListDTO = Arrays.asList(curvePoint1DTO, curvePoint2DTO);
     }
 
@@ -65,12 +70,13 @@ public class CurvePointServiceTest {
     @Tag("AddCurvePoint")
     @DisplayName("Given a CurvePoint to save, when addCurvePoint, then curvePoint should be saved correctly")
     public void givenACurvePoint_whenAddCurvePoint_thenCurvePointShouldBeSavedCorrectly() {
-        when(modelConverter.toCurvePoint(any(CurvePointDTO.class))).thenReturn(curvePoint1);
+        CurvePoint curvePointToAdd = new CurvePoint(3, BigDecimal.TEN, BigDecimal.TEN);
+        CurvePointDTO curvePointToAddDTO = new CurvePointDTO(3, BigDecimal.TEN, BigDecimal.TEN);
+        when(modelConverter.toCurvePoint(any(CurvePointDTO.class))).thenReturn(curvePointToAdd);
         when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint1);
         when(dtoConverter.toCurvePointDTO(any(CurvePoint.class))).thenReturn(curvePoint1DTO);
 
-        CurvePointDTO curvePointSaved = curvePointService.addCurvePoint(new CurvePointDTO(3, BigDecimal.TEN,
-                BigDecimal.TEN));
+        CurvePointDTO curvePointSaved = curvePointService.addCurvePoint(curvePointToAddDTO);
 
         assertThat(curvePointSaved).isEqualToComparingFieldByField(curvePoint1DTO);
         InOrder inOrder = inOrder(curvePointRepository, dtoConverter, modelConverter);
@@ -83,14 +89,20 @@ public class CurvePointServiceTest {
     @Tag("UpdateCurvePoint")
     @DisplayName("Given a registered curvePoint, when updateCurvePoint, then curvePoint should be updated correctly")
     public void givenACurvePointToUpdate_whenUpdateCurvePoint_thenCurvePointShouldBeUpdateCorrectly() {
-        CurvePointDTO curvePoint1DTOUpdated = new CurvePointDTO(1, 3, BigDecimal.TEN, BigDecimal.valueOf(265));
-        CurvePoint curvePoint1Updated = new CurvePoint(1, 3, BigDecimal.TEN, BigDecimal.valueOf(265));
+        CurvePoint convertedCurvePoint = new CurvePoint(3, BigDecimal.ONE, BigDecimal.TEN);
+        CurvePointDTO curvePoint1DTOUpdated = new CurvePointDTO(1, 3, LocalDateTime.of(2019, 12,
+                29, 12, 20), BigDecimal.ONE, BigDecimal.TEN, LocalDateTime.of(2019,
+                12, 22, 11, 23));
+        CurvePoint curvePoint1Updated = new CurvePoint(1, 3, LocalDateTime.of(2019, 12,
+                29, 12, 20), BigDecimal.ONE, BigDecimal.TEN, LocalDateTime.of(2019,
+                12, 22, 11, 23));
         when(curvePointRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(curvePoint1));
+        when(modelConverter.toCurvePoint(any(CurvePointDTO.class))).thenReturn(convertedCurvePoint);
         when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint1Updated);
         when(dtoConverter.toCurvePointDTO(any(CurvePoint.class))).thenReturn(curvePoint1DTOUpdated);
 
-        CurvePointDTO result = curvePointService.updateCurvePoint(1, new CurvePointDTO(3,
-                BigDecimal.TEN, BigDecimal.valueOf(265)));
+        CurvePointDTO result = curvePointService.updateCurvePoint(1,
+                new CurvePointDTO(3, BigDecimal.ONE, BigDecimal.TEN));
 
         assertThat(result).isEqualTo(curvePoint1DTOUpdated);
         InOrder inOrder = inOrder(curvePointRepository, dtoConverter);

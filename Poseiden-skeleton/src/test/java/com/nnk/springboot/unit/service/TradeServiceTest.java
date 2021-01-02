@@ -2,11 +2,11 @@ package com.nnk.springboot.unit.service;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.dto.TradeDTO;
-import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.TradeRepository;
 import com.nnk.springboot.service.TradeService;
 import com.nnk.springboot.util.DTOConverter;
 import com.nnk.springboot.util.ModelConverter;
+import com.nnk.springboot.exception.ResourceNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -22,10 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TradeServiceTest {
@@ -56,8 +53,14 @@ public class TradeServiceTest {
     public void setUp() {
         trade1DTO = new TradeDTO(1, "account1", "type1", BigDecimal.TEN);
         trade2DTO = new TradeDTO(2, "account2", "type2", BigDecimal.TEN);
-        trade1 = new Trade(1, "account1", "type1", BigDecimal.TEN);
-        trade2 = new Trade(2, "account2", "type2", BigDecimal.TEN);
+        trade1 = new Trade(1, "account1", "type1", BigDecimal.TEN, null, null,
+                null, null, null, null, null, null, null,
+                null, null, null, null, null, null,
+                null);
+        trade2 = new Trade(2, "account2", "type2", BigDecimal.TEN, null, null,
+                null, null, null, null, null, null, null,
+                null, null, null, null, null, null,
+                null);
         tradeListDTO = Arrays.asList(trade1DTO, trade2DTO);
     }
 
@@ -65,11 +68,13 @@ public class TradeServiceTest {
     @Tag("AddTrade")
     @DisplayName("Given a trade to save, when addTrade, then Trade should be saved correctly")
     public void givenATrade_whenAddTrade_thenTradeShouldBeSavedCorrectly() {
-        when(modelConverter.toTrade(any(TradeDTO.class))).thenReturn(trade1);
+        TradeDTO tradeToAddDTO = new TradeDTO("account1", "type1", BigDecimal.TEN);
+        Trade tradeToAdd = new Trade("account1", "type1", BigDecimal.TEN);
+        when(modelConverter.toTrade(any(TradeDTO.class))).thenReturn(tradeToAdd);
         when(tradeRepository.save(any(Trade.class))).thenReturn(trade1);
         when(dtoConverter.toTradeDTO(any(Trade.class))).thenReturn(trade1DTO);
 
-        TradeDTO TradeSaved = tradeService.addTrade(new TradeDTO("account1", "type1", BigDecimal.TEN));
+        TradeDTO TradeSaved = tradeService.addTrade(tradeToAddDTO);
 
         assertThat(TradeSaved).isEqualToComparingFieldByField(trade1DTO);
         InOrder inOrder = inOrder(tradeRepository, dtoConverter, modelConverter);
@@ -83,7 +88,10 @@ public class TradeServiceTest {
     @DisplayName("Given a registered Trade, when updateTrade, then Trade should be updated correctly")
     public void givenATradeToUpdate_whenUpdateTrade_thenTradeShouldBeUpdateCorrectly() {
         TradeDTO trade1DTOUpdated = new TradeDTO(1, "account1", "type1", BigDecimal.valueOf(300));
-        Trade trade1Updated = new Trade(1, "account1", "type1", BigDecimal.valueOf(300));
+        Trade trade1Updated = new Trade(1, "account1", "type1", BigDecimal.valueOf(300), null,
+                null, null, null, null, null, null, null,
+                null, null, null, null, null, null,
+                null, null);
         when(tradeRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(trade1));
         when(tradeRepository.save(any(Trade.class))).thenReturn(trade1Updated);
         when(dtoConverter.toTradeDTO(any(Trade.class))).thenReturn(trade1DTOUpdated);

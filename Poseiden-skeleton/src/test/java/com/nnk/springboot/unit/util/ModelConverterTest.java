@@ -11,14 +11,13 @@ import java.math.BigDecimal;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ModelConverterTest {
-
     private ModelConverter modelConverter = new ModelConverter();
 
     @Test
     @DisplayName("Given a BidListDTO, when ToBidList, then result should match expected BidList")
     public void givenABidListDTO_whenToBidList_thenReturnExpectedBidList() {
-        BidList expectedBidList = new BidList(1, "account", "type", BigDecimal.TEN);
-        BidListDTO bidListDTO = new BidListDTO(1, "account", "type", BigDecimal.TEN);
+        BidList expectedBidList = new BidList("account", "type", BigDecimal.TEN);
+        BidListDTO bidListDTO = new BidListDTO("account", "type", BigDecimal.TEN);
 
         BidList result = modelConverter.toBidList(bidListDTO);
 
@@ -28,8 +27,8 @@ public class ModelConverterTest {
     @Test
     @DisplayName("Given a CurvePointDTO, when ToCurvePoint, then result should match expected CurvePoint")
     public void givenACurvePointDTO_whenToCurvePoint_thenReturnExpectedCurvePoint() {
-        CurvePoint expectedCurvePoint = new CurvePoint(1,1, BigDecimal.TEN, BigDecimal.TEN);
-        CurvePointDTO curvePoint = new CurvePointDTO(1, 1, BigDecimal.TEN, BigDecimal.TEN);
+        CurvePoint expectedCurvePoint = new CurvePoint(1, BigDecimal.TEN, BigDecimal.TEN);
+        CurvePointDTO curvePoint = new CurvePointDTO(1, BigDecimal.TEN, BigDecimal.TEN);
 
         CurvePoint result = modelConverter.toCurvePoint(curvePoint);
 
@@ -39,8 +38,8 @@ public class ModelConverterTest {
     @Test
     @DisplayName("Given a TradeDTO, when ToTrade, then result should match expected Trade")
     public void givenATradeDTO_whenToTrade_thenReturnExpectedTrade() {
-        Trade expectedTrade = new Trade(1, "account", "type", BigDecimal.TEN);
-        TradeDTO tradeDTO = new TradeDTO(1, "account", "type", BigDecimal.TEN);
+        Trade expectedTrade = new Trade("account", "type", BigDecimal.TEN);
+        TradeDTO tradeDTO = new TradeDTO("account", "type", BigDecimal.TEN);
 
         Trade result = modelConverter.toTrade(tradeDTO);
 
@@ -50,9 +49,9 @@ public class ModelConverterTest {
     @Test
     @DisplayName("Given a RatingDTO, when ToRating, then result should match expected Rating")
     public void givenARatingDTO_whenRating_thenReturnExpectedRating() {
-        Rating expectedRating = new Rating(1, "moody", "standP",
+        Rating expectedRating = new Rating("moody", "standP",
                 "fitch", 3);
-        RatingDTO ratingDTO = new RatingDTO(1, "moody", "standP","fitch", 3);
+        RatingDTO ratingDTO = new RatingDTO("moody", "standP","fitch", 3);
 
         Rating result = modelConverter.toRating(ratingDTO);
 
@@ -62,9 +61,9 @@ public class ModelConverterTest {
     @Test
     @DisplayName("Given a RuleNameDTO, when ToRuleName, then result should match expected RuleName")
     public void givenARuleNameDTO_whenRuleName_thenReturnExpectedRuleName() {
-        RuleName expectedRuleName = new RuleName(1, "name", "description","json",
+        RuleName expectedRuleName = new RuleName("name", "description","json",
                 "template", "sqlStr", "sqlPart");
-        RuleNameDTO ruleNameDTO = new RuleNameDTO(1, "name", "description","json", "template",
+        RuleNameDTO ruleNameDTO = new RuleNameDTO("name", "description","json", "template",
                 "sqlStr", "sqlPart");
 
         RuleName result = modelConverter.toRuleName(ruleNameDTO);

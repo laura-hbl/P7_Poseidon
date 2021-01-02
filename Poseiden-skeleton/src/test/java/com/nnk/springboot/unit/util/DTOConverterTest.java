@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,7 +31,10 @@ public class DTOConverterTest {
     @DisplayName("Given a BidList, when ToBidListDTO, then result should match expected BidListDTO")
     public void givenABidList_whenToBidListDTO_thenReturnExpectedBidListDTO() {
         BidListDTO expectedBidListDTO = new BidListDTO(1, "account", "type", BigDecimal.TEN);
-        BidList bid = new BidList(1, "account", "type", BigDecimal.TEN);
+        BidList bid = new BidList(1, "account", "type", BigDecimal.TEN, null, null,
+                null, null, null, null, null, null, null,
+                null, null, null, null, null, null,
+                null, null, null);
 
         BidListDTO result = dtoConverter.toBidListDTO(bid);
 
@@ -40,8 +44,10 @@ public class DTOConverterTest {
     @Test
     @DisplayName("Given a CurvePoint, when ToCurvePointDTO, then result should match expected CurvePointDTO")
     public void givenACurvePoint_whenToCurvePointDTO_thenReturnExpectedCurvePointDTO() {
-        CurvePointDTO expectedCurvePointDTO = new CurvePointDTO(1,1, BigDecimal.TEN, BigDecimal.TEN);
-        CurvePoint curvePoint = new CurvePoint(1, 1, BigDecimal.TEN, BigDecimal.TEN);
+        CurvePointDTO expectedCurvePointDTO = new CurvePointDTO(1, 3, null, BigDecimal.TEN,
+                BigDecimal.TEN, LocalDateTime.of(2019, 12, 22, 11, 23));
+        CurvePoint  curvePoint = new CurvePoint(1, 3, null, BigDecimal.TEN, BigDecimal.TEN,
+                LocalDateTime.of(2019, 12, 22, 11, 23));
 
         CurvePointDTO result = dtoConverter.toCurvePointDTO(curvePoint);
 
@@ -52,7 +58,10 @@ public class DTOConverterTest {
     @DisplayName("Given a Trade, when ToTradeDTO, then result should match expected TradeDTO")
     public void givenATrade_whenTradeDTO_thenReturnExpectedTradeDTO() {
         TradeDTO expectedTradeDTO = new TradeDTO(1, "account", "type", BigDecimal.TEN);
-        Trade trade = new Trade(1, "account", "type", BigDecimal.TEN);
+        Trade trade = new Trade(1, "account", "type", BigDecimal.TEN, null, null,
+                null, null, null, null, null, null, null,
+                null, null, null, null, null, null,
+                null);
 
         TradeDTO result = dtoConverter.toTradeDTO(trade);
 

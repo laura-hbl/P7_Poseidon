@@ -64,12 +64,13 @@ public class RatingServiceTest {
     @Tag("AddRating")
     @DisplayName("Given a rating to save, when addRating, then rating should be saved correctly")
     public void givenARating_whenAddRating_thenRatingShouldBeSavedCorrectly() {
-        when(modelConverter.toRating(any(RatingDTO.class))).thenReturn(rating1);
+        Rating ratingToAdd = new Rating("moody", "standP", "fitch", 3);
+        RatingDTO ratingToAddDTO = new RatingDTO("moody", "standP", "fitch", 3);
+        when(modelConverter.toRating(any(RatingDTO.class))).thenReturn(ratingToAdd);
         when(ratingRepository.save(any(Rating.class))).thenReturn(rating1);
         when(dtoConverter.toRatingDTO(any(Rating.class))).thenReturn(rating1DTO);
 
-        RatingDTO ratingSaved = ratingService.addRating(new RatingDTO("moody", "standP",
-                "fitch", 3));
+        RatingDTO ratingSaved = ratingService.addRating(ratingToAddDTO);
 
         assertThat(ratingSaved).isEqualToComparingFieldByField(rating1DTO);
         InOrder inOrder = inOrder(ratingRepository, dtoConverter, modelConverter);

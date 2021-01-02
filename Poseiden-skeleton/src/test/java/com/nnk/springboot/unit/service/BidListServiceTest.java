@@ -56,8 +56,14 @@ public class BidListServiceTest {
     public void setUp() {
         bidList1DTO = new BidListDTO(1, "account1", "type1", BigDecimal.TEN);
         bidList2DTO = new BidListDTO(2, "account2", "type2", BigDecimal.TEN);
-        bidList1 = new BidList(1, "account1", "type1", BigDecimal.TEN);
-        bidList2 = new BidList(2, "account2", "type2", BigDecimal.TEN);
+        bidList1 = new BidList(1, "account1", "type1", BigDecimal.TEN, null, null,
+                null, null, null, null, null, null, null,
+                null, null, null, null, null, null,
+                null, null, null);
+        bidList2 = new BidList(1, "account2", "type2", BigDecimal.TEN, null, null,
+                null, null, null, null, null, null, null,
+                null, null, null, null, null, null,
+                null, null, null);
         listOfBidListDTO = Arrays.asList(bidList1DTO, bidList2DTO);
     }
 
@@ -65,13 +71,16 @@ public class BidListServiceTest {
     @Tag("AddBidList")
     @DisplayName("Given a bidList to save, when addBidList, then bidList should be saved correctly")
     public void givenABidList_whenAddBidList_thenBidListShouldBeSavedCorrectly() {
-        when(modelConverter.toBidList(any(BidListDTO.class))).thenReturn(bidList1);
+        BidListDTO bidListToAddDTO = new BidListDTO("account1", "type1", BigDecimal.TEN);
+        BidList bidListToAdd = new BidList("account1", "type1", BigDecimal.TEN);
+
+        when(modelConverter.toBidList(any(BidListDTO.class))).thenReturn(bidListToAdd);
         when(bidListRepository.save(any(BidList.class))).thenReturn(bidList1);
         when(dtoConverter.toBidListDTO(any(BidList.class))).thenReturn(bidList1DTO);
 
-        BidListDTO bidListSaved = bidListService.addBidList(new BidListDTO("account1", "type1", BigDecimal.TEN));
+        BidListDTO bidListAdded = bidListService.addBidList(bidListToAddDTO);
 
-        assertThat(bidListSaved).isEqualToComparingFieldByField(bidList1DTO);
+        assertThat(bidListAdded).isEqualToComparingFieldByField(bidList1DTO);
         InOrder inOrder = inOrder(bidListRepository, dtoConverter, modelConverter);
         inOrder.verify(modelConverter).toBidList(any(BidListDTO.class));
         inOrder.verify(bidListRepository).save(any(BidList.class));
@@ -82,7 +91,10 @@ public class BidListServiceTest {
     @Tag("UpdateBidList")
     @DisplayName("Given a registered bidList, when updateBidList, then bidList should be updated correctly")
     public void givenABidListToUpdate_whenUpdateBidList_thenBidListShouldBeUpdateCorrectly() {
-        BidList bidUpdated = new BidList(1, "account1", "type1", BigDecimal.valueOf(100));
+        BidList bidUpdated = new BidList(1,"account1", "type1", BigDecimal.valueOf(100), null, null,
+                null, null, null, null, null, null, null,
+                null, null, null, null, null, null,
+                null, null, null);
         BidListDTO bidUpdatedDTO = new BidListDTO(1,"account1", "type1", BigDecimal.valueOf(100));
         when(bidListRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(bidList1));
         when(bidListRepository.save(any(BidList.class))).thenReturn(bidUpdated);
@@ -149,7 +161,6 @@ public class BidListServiceTest {
     @DisplayName("Given an bidList list, when getAllBidList, then result should match expected bidList list")
     public void givenABidLisBidList_whenGetAllBidList_thenReturnExpectedBidListList() {
         when(bidListRepository.findAll()).thenReturn(Arrays.asList(bidList1, bidList2));
-
         when(dtoConverter.toBidListDTO(bidList1)).thenReturn(bidList1DTO);
         when(dtoConverter.toBidListDTO(bidList2)).thenReturn(bidList2DTO);
 

@@ -33,7 +33,7 @@ public class BidListServiceIT {
     @Tag("AddBidList")
     @DisplayName("If bidList is not registered, when addBidList, then return bidList saved")
     public void givenAnUnRegisteredBidList_whenAddBidList_thenBidListSavedShouldBeReturned() {
-        BidListDTO bidListDTO = new BidListDTO( "account3", "type3", BigDecimal.TEN);
+        BidListDTO bidListDTO = new BidListDTO("account3", "type3", BigDecimal.TEN);
 
         BidListDTO bidListSaved = bidListService.addBidList(bidListDTO);
 
