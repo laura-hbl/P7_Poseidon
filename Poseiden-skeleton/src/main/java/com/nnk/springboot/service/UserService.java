@@ -79,9 +79,9 @@ public class UserService implements IUserService {
         String password = passwordEncoder.encode(userDTO.getPassword());
         User userToSave = new User(userDTO.getUsername(), password, userDTO.getFullname(), userDTO.getRole());
 
-        User user = userRepository.save(userToSave);
+        User userSaved = userRepository.save(userToSave);
 
-        return dtoConverter.toUserDTO(user);
+        return dtoConverter.toUserDTO(userSaved);
     }
 
     /**
@@ -103,9 +103,9 @@ public class UserService implements IUserService {
         userToUpdate.setFullname(userDTO.getFullname());
         userToUpdate.setId(userId);
 
-        User user = userRepository.save(userToUpdate);
+        User userUpdated = userRepository.save(userToUpdate);
 
-        return dtoConverter.toUserDTO(user);
+        return dtoConverter.toUserDTO(userUpdated);
     }
 
     /**

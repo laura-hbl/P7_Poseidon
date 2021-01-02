@@ -69,9 +69,9 @@ public class RatingService implements IRatingService {
         LOGGER.debug("Inside RatingService.addRating");
 
         Rating rating = modelConverter.toRating(ratingDTO);
-        Rating ratingUpdated = ratingRepository.save(rating);
+        Rating ratingSaved = ratingRepository.save(rating);
 
-        return dtoConverter.toRatingDTO(ratingUpdated);
+        return dtoConverter.toRatingDTO(ratingSaved);
     }
 
     /**

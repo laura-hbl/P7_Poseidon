@@ -20,8 +20,7 @@ public class ModelConverter {
      */
     public BidList toBidList(final BidListDTO bidListDTO) {
 
-        return new BidList(bidListDTO.getId(), bidListDTO.getAccount(), bidListDTO.getType(),
-                bidListDTO.getBidQuantity());
+        return new BidList(bidListDTO.getAccount(), bidListDTO.getType(), bidListDTO.getBidQuantity());
     }
 
     /**
@@ -32,8 +31,7 @@ public class ModelConverter {
      */
     public CurvePoint toCurvePoint(final CurvePointDTO curvePointDTO) {
 
-        return new CurvePoint(curvePointDTO.getId(), curvePointDTO.getCurveId(), curvePointDTO.getTerm(),
-                curvePointDTO.getValue());
+        return new CurvePoint(curvePointDTO.getCurveId(), curvePointDTO.getTerm(), curvePointDTO.getValue());
     }
 
     /**
@@ -44,7 +42,7 @@ public class ModelConverter {
      */
     public Trade toTrade(final TradeDTO tradeDTO) {
 
-        return new Trade(tradeDTO.getId(), tradeDTO.getAccount(), tradeDTO.getType(), tradeDTO.getBuyQuantity());
+        return new Trade(tradeDTO.getAccount(), tradeDTO.getType(), tradeDTO.getBuyQuantity());
     }
 
     /**
@@ -55,8 +53,8 @@ public class ModelConverter {
      */
     public Rating toRating(final RatingDTO ratingDTO) {
 
-        return new Rating(ratingDTO.getId(), ratingDTO.getMoodysRating(), ratingDTO.getStandPoorRating(),
-                ratingDTO.getFitchRating(), ratingDTO.getOrderNumber());
+        return new Rating(ratingDTO.getMoodysRating(), ratingDTO.getStandPoorRating(), ratingDTO.getFitchRating(),
+                ratingDTO.getOrderNumber());
     }
 
     /**
@@ -67,7 +65,7 @@ public class ModelConverter {
      */
     public RuleName toRuleName(final RuleNameDTO ruleNameDTO) {
 
-        return new RuleName(ruleNameDTO.getId(), ruleNameDTO.getName(), ruleNameDTO.getDescription(),
-                ruleNameDTO.getJson(), ruleNameDTO.getTemplate(), ruleNameDTO.getSqlStr(), ruleNameDTO.getSqlPart());
+        return new RuleName(ruleNameDTO.getName(), ruleNameDTO.getDescription(), ruleNameDTO.getJson(),
+                ruleNameDTO.getTemplate(), ruleNameDTO.getSqlStr(), ruleNameDTO.getSqlPart());
     }
 }

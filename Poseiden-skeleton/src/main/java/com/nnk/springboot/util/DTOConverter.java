@@ -31,8 +31,8 @@ public class DTOConverter {
      */
     public CurvePointDTO toCurvePointDTO(final CurvePoint curvePoint) {
 
-        return new CurvePointDTO(curvePoint.getId(), curvePoint.getCurveId(), curvePoint.getTerm(),
-                curvePoint.getValue());
+        return new CurvePointDTO(curvePoint.getId(), curvePoint.getCurveId(), curvePoint.getAsOfDate(),
+                curvePoint.getTerm(), curvePoint.getValue(), curvePoint.getCreationDate());
     }
 
     /**

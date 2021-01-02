@@ -69,9 +69,9 @@ public class BidListService implements IBidListService {
         LOGGER.debug("Inside BidListService.updateBidList");
 
         BidList bidList = modelConverter.toBidList(bidListDTO);
-        BidList bidListUpdated = bidListRepository.save(bidList);
+        BidList bidListSaved = bidListRepository.save(bidList);
 
-        return dtoConverter.toBidListDTO(bidListUpdated);
+        return dtoConverter.toBidListDTO(bidListSaved);
     }
 
     /**

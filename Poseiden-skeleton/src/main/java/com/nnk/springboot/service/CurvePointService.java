@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,9 +70,10 @@ public class CurvePointService implements ICurvePointService {
         LOGGER.debug("Inside CurvePointService.updateCurvePoint");
 
         CurvePoint curvePoint = modelConverter.toCurvePoint(curvePointDTO);
-        CurvePoint curvePointUpdated = curvePointRepository.save(curvePoint);
+        curvePoint.setCreationDate(LocalDateTime.now());
+        CurvePoint curvePointSaved = curvePointRepository.save(curvePoint);
 
-        return dtoConverter.toCurvePointDTO(curvePointUpdated);
+        return dtoConverter.toCurvePointDTO(curvePointSaved);
     }
 
     /**
@@ -86,12 +88,12 @@ public class CurvePointService implements ICurvePointService {
     public CurvePointDTO updateCurvePoint(final int curvePointId, final CurvePointDTO curvePointDTO) {
         LOGGER.debug("Inside CurvePointService.updateCurvePoint");
 
-        CurvePoint curvePoint = curvePointRepository.findById(curvePointId).orElseThrow(() ->
+        curvePointRepository.findById(curvePointId).orElseThrow(() ->
                 new ResourceNotFoundException("No curvePoint registered with this id"));
 
-        curvePoint.setCurveId(curvePointDTO.getCurveId());
-        curvePoint.setTerm(curvePointDTO.getTerm());
-        curvePoint.setValue(curvePointDTO.getValue());
+        CurvePoint curvePoint = modelConverter.toCurvePoint(curvePointDTO);
+        curvePoint.setId(curvePointId);
+        curvePoint.setAsOfDate(LocalDateTime.now());
 
         CurvePoint curvePointUpdated = curvePointRepository.save(curvePoint);
 
