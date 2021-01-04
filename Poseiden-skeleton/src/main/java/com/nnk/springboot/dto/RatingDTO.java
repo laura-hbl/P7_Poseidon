@@ -22,19 +22,19 @@ public class RatingDTO {
     private Integer id;
 
     /**
-     * Rating of moody.
+     * Moody's rating.
      */
     @Length(max = RatingConstraints.MOODY_RATING_MAX_SIZE, message = "The maximum length for account is 125 characters")
     private String moodysRating;
 
     /**
-     * Rating of standPoor.
+     * Standard and Poor's rating.
      */
     @Length(max = RatingConstraints.STAND_P_RATING_MAX_SIZE, message = "The maximum length for account is 125 characters")
     private String standPoorRating;
 
     /**
-     * Rating of fitch.
+     * Fitch's rating.
      */
     @Length(max = RatingConstraints.FITCH_RATING_MAX_SIZE, message = "The maximum length for account is 125 characters")
     private String fitchRating;
@@ -51,7 +51,7 @@ public class RatingDTO {
      *
      * @param moodysRating    rating of moody
      * @param standPoorRating rating of standPoor
-     * @param fitchRating     rating of fitch
+     * @param fitchRating     Fitch's rating.
      * @param orderNumber     order number of the rating
      */
     public RatingDTO(final String moodysRating, final String standPoorRating, final String fitchRating,

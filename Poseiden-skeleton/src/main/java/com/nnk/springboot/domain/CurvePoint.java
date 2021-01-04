@@ -50,7 +50,7 @@ public class CurvePoint {
     private BigDecimal value;
 
     /**
-     * Date and time of curvePoint creation.
+     * Date and time of the curvePoint creation.
      */
     @Column(name = "creation_date")
     private LocalDateTime creationDate;

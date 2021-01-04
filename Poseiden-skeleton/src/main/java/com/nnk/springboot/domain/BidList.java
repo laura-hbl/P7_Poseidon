@@ -49,12 +49,12 @@ public class BidList {
     private BigDecimal askQuantity;
 
     /**
-     * Bid of the bidList.
+     * Current highest price that someone is willing to pay.
      */
     private BigDecimal bid;
 
     /**
-     * Ask of the bidList.
+     * Current lowest price at which someone is willing to sell.
      */
     private BigDecimal ask;
 

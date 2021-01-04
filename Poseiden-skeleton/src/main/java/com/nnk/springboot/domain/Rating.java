@@ -25,19 +25,19 @@ public class Rating {
     private Integer id;
 
     /**
-     * Rating of Moody.
+     * Moody's rating.
      */
     @Column(name = "moodys_rating")
     private String moodysRating;
 
     /**
-     * Rating of Stand Poor.
+     * Standard and Poor's rating.
      */
     @Column(name = "stand_poor_rating")
     private String standPoorRating;
 
     /**
-     * Rating of Fitch.
+     * Fitch's rating.
      */
     @Column(name = "fitch_rating")
     private String fitchRating;
@@ -52,8 +52,9 @@ public class Rating {
      * Constructor of class Rating.
      * Initialize moodysRating, standPoorRating and orderNumber.
      *
-     * @param moodysRating    rating of Moody
-     * @param standPoorRating rating of Fitch
+     * @param moodysRating    Moody's rating
+     * @param standPoorRating Standard and Poor's rating
+     * @param fitchRating     Fitch's rating
      * @param orderNumber     order number of the rating
      */
     public Rating(final String moodysRating, final String standPoorRating, final String fitchRating,

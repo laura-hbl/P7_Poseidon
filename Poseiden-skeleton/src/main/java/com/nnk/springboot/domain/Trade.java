@@ -62,7 +62,7 @@ public class Trade {
     private BigDecimal sellPrice;
 
     /**
-     * Security of the trade.
+     * Financial instrument that is both fungible and negotiable.
      */
     private String security;
 
