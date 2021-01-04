@@ -70,4 +70,15 @@ public class ModelConverterTest {
 
         assertThat(result).isEqualToComparingFieldByField(expectedRuleName);
     }
+
+    @Test
+    @DisplayName("Given an UserDTO, when ToUser, then result should match expected User")
+    public void givenAUserDTO_whenUser_thenReturnExpectedUser() {
+        User expectedUser = new User("Laura", "passwordA111&", "Laura", "USER");
+        UserDTO ruleNameDTO = new UserDTO("Laura", "passwordA111&", "Laura", "USER");
+
+        User result = modelConverter.toUser(ruleNameDTO);
+
+        assertThat(result).isEqualToComparingFieldByField(expectedUser);
+    }
 }

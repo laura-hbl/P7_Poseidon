@@ -68,4 +68,15 @@ public class ModelConverter {
         return new RuleName(ruleNameDTO.getName(), ruleNameDTO.getDescription(), ruleNameDTO.getJson(),
                 ruleNameDTO.getTemplate(), ruleNameDTO.getSqlStr(), ruleNameDTO.getSqlPart());
     }
+
+    /**
+     * Converts UserDTO to User.
+     *
+     * @param userDTO UserDTO object to convert
+     * @return The User object
+     */
+    public User toUser(final UserDTO userDTO) {
+
+        return new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getFullname(), userDTO.getRole());
+    }
 }
