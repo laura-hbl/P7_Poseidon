@@ -88,6 +88,8 @@ public class RatingServiceTest {
         Rating rating1Updated = new Rating(1, "moody", "standP", "fitch",
                 7);
         when(ratingRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(rating1));
+        when(modelConverter.toRating(any(RatingDTO.class))).thenReturn(new Rating("moody", "standP",
+                "fitch", 7));
         when(ratingRepository.save(any(Rating.class))).thenReturn(rating1Updated);
         when(dtoConverter.toRatingDTO(any(Rating.class))).thenReturn(rating1DTOUpdated);
 
@@ -95,8 +97,9 @@ public class RatingServiceTest {
                 "fitch", 7));
 
         assertThat(result).isEqualTo(rating1DTOUpdated);
-        InOrder inOrder = inOrder(ratingRepository, dtoConverter);
+        InOrder inOrder = inOrder(ratingRepository, modelConverter, dtoConverter);
         inOrder.verify(ratingRepository).findById(anyInt());
+        inOrder.verify(modelConverter).toRating(any(RatingDTO.class));
         inOrder.verify(ratingRepository).save(any(Rating.class));
         inOrder.verify(dtoConverter).toRatingDTO(any(Rating.class));
     }

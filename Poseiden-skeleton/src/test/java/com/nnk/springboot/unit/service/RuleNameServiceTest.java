@@ -94,6 +94,8 @@ public class RuleNameServiceTest {
         RuleName ruleName1Updated = new RuleName(1, "nameUpdate", "description","json",
                 "template", "sqlStr", "sqlPart");
         when(ruleNameRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(ruleName1));
+        when(modelConverter.toRuleName(any(RuleNameDTO.class))).thenReturn(new RuleName("nameUpdate",
+                "description","json", "template", "sqlStr", "sqlPart"));
         when(ruleNameRepository.save(any(RuleName.class))).thenReturn(ruleName1Updated);
         when(dtoConverter.toRuleNameDTO(any(RuleName.class))).thenReturn(ruleName1DTOUpdated);
 
@@ -103,6 +105,7 @@ public class RuleNameServiceTest {
         assertThat(result).isEqualTo(ruleName1DTOUpdated);
         InOrder inOrder = inOrder(ruleNameRepository, dtoConverter, modelConverter);
         inOrder.verify(ruleNameRepository).findById(anyInt());
+        inOrder.verify(modelConverter).toRuleName(any(RuleNameDTO.class));
         inOrder.verify(ruleNameRepository).save(any(RuleName.class));
         inOrder.verify(dtoConverter).toRuleNameDTO(any(RuleName.class));
     }

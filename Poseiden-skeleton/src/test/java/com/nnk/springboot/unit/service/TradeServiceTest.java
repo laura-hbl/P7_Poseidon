@@ -93,6 +93,8 @@ public class TradeServiceTest {
                 null, null, null, null, null, null,
                 null, null);
         when(tradeRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(trade1));
+        when(modelConverter.toTrade(any(TradeDTO.class))).thenReturn(new Trade( "account1", "type1",
+                BigDecimal.valueOf(300)));
         when(tradeRepository.save(any(Trade.class))).thenReturn(trade1Updated);
         when(dtoConverter.toTradeDTO(any(Trade.class))).thenReturn(trade1DTOUpdated);
 
@@ -100,8 +102,9 @@ public class TradeServiceTest {
                 BigDecimal.valueOf(300)));
 
         assertThat(result).isEqualTo(trade1DTOUpdated);
-        InOrder inOrder = inOrder(tradeRepository, dtoConverter);
+        InOrder inOrder = inOrder(tradeRepository, modelConverter, dtoConverter);
         inOrder.verify(tradeRepository).findById(anyInt());
+        inOrder.verify(modelConverter).toTrade(any(TradeDTO.class));
         inOrder.verify(tradeRepository).save(any(Trade.class));
         inOrder.verify(dtoConverter).toTradeDTO(any(Trade.class));
     }

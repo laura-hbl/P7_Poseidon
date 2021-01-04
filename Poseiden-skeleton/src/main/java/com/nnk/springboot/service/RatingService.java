@@ -76,8 +76,8 @@ public class RatingService implements IRatingService {
 
     /**
      * Checks if the given rating to update is registered by calling RatingRepository's findById method, if so
-     * rating found is updated, then saved to database by calling RatingRepository's save method and converted
-     * to a RatingDTO object. Else, ResourceNotFoundException is thrown.
+     * converts the RatingDTO object to a Rating object, then saved to database by calling RatingRepository's
+     * save method and converted to a RatingDTO object. Else, ResourceNotFoundException is thrown.
      *
      * @param ratingId  id of the rating to be updated
      * @param ratingDTO the rating to be updated
@@ -86,15 +86,12 @@ public class RatingService implements IRatingService {
     public RatingDTO updateRating(final int ratingId, final RatingDTO ratingDTO) {
         LOGGER.debug("Inside RatingService.updateRating");
 
-        Rating rating = ratingRepository.findById(ratingId).orElseThrow(() ->
+        ratingRepository.findById(ratingId).orElseThrow(() ->
                 new ResourceNotFoundException("No rating registered with this id"));
 
-        rating.setMoodysRating(ratingDTO.getMoodysRating());
-        rating.setStandPoorRating(ratingDTO.getStandPoorRating());
-        rating.setFitchRating(ratingDTO.getFitchRating());
-        rating.setOrderNumber(ratingDTO.getOrderNumber());
-
-        Rating ratingUpdated = ratingRepository.save(rating);
+        Rating ratingToUpdate = modelConverter.toRating(ratingDTO);
+        ratingToUpdate.setId(ratingId);
+        Rating ratingUpdated = ratingRepository.save(ratingToUpdate);
 
         return dtoConverter.toRatingDTO(ratingUpdated);
     }

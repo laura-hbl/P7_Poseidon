@@ -78,8 +78,9 @@ public class CurvePointService implements ICurvePointService {
 
     /**
      * Checks if the given curvePoint to update is registered by calling CurvePointRepository's findById method,
-     * if so curvePoint found is updated, then saved to database by calling CurvePointRepository's save method
-     * and converted to a CurvePointDTO object. Else, ResourceNotFoundException is thrown.
+     * if so converts the CurvePoint object to an CurvePoint object, updates data, then saved to database by calling
+     * CurvePointRepository's save method and converted to a CurvePointDTO object. Else, ResourceNotFoundException
+     * is thrown.
      *
      * @param curvePointId  id of the curvePoint to be updated
      * @param curvePointDTO the curvePoint to be updated
@@ -94,7 +95,6 @@ public class CurvePointService implements ICurvePointService {
         CurvePoint curvePoint = modelConverter.toCurvePoint(curvePointDTO);
         curvePoint.setId(curvePointId);
         curvePoint.setAsOfDate(LocalDateTime.now());
-
         CurvePoint curvePointUpdated = curvePointRepository.save(curvePoint);
 
         return dtoConverter.toCurvePointDTO(curvePointUpdated);

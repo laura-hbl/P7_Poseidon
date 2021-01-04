@@ -6,6 +6,7 @@ import com.nnk.springboot.exception.DataAlreadyRegisteredException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.UserRepository;
 import com.nnk.springboot.util.DTOConverter;
+import com.nnk.springboot.util.ModelConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,19 +45,26 @@ public class UserService implements IUserService {
     private final DTOConverter dtoConverter;
 
     /**
+     * ModelConverter instance.
+     */
+    private final ModelConverter modelConverter;
+
+    /**
      * Constructor of class UserService.
      * Initialize userRepository, dtoConverter and passwordEncoder.
      *
      * @param userRepository  UserRepository instance
      * @param passwordEncoder BCryptPasswordEncoder instance
      * @param dtoConverter    DTOConverter instance
+     * @param modelConverter  ModelConverter instance
      */
     @Autowired
     public UserService(final UserRepository userRepository, final BCryptPasswordEncoder passwordEncoder,
-                       final DTOConverter dtoConverter) {
+                       final DTOConverter dtoConverter, final ModelConverter modelConverter) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.dtoConverter = dtoConverter;
+        this.modelConverter = modelConverter;
     }
 
 
@@ -77,18 +85,17 @@ public class UserService implements IUserService {
         if (userFound != null) {
             throw new DataAlreadyRegisteredException("The username provided may be registered already");
         }
-        String password = passwordEncoder.encode(userDTO.getPassword());
-        User userToSave = new User(userDTO.getUsername(), password, userDTO.getFullname(), userDTO.getRole());
-
+        User userToSave = modelConverter.toUser(userDTO);
+        userToSave.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User userSaved = userRepository.save(userToSave);
 
         return dtoConverter.toUserDTO(userSaved);
     }
 
     /**
-     * Checks if the given user to update is registered by calling UserRepository's findById method, if so user
-     * found is updated, then saved to database by calling UserRepository's save method and converted to a UserDTO
-     * object. Else, ResourceNotFoundException is thrown.
+     * Checks if the given user to update is registered by calling UserRepository's findById method, if so converts
+     * the UserDTO object to an User object, updates data, then saves it to database by calling UserRepository's save
+     * method and converted to a UserDTO object. Else, ResourceNotFoundException is thrown.
      *
      * @param userId  id of the user to be updated
      * @param userDTO the user to be updated
@@ -97,13 +104,12 @@ public class UserService implements IUserService {
     public UserDTO updateUser(final int userId, final UserDTO userDTO) {
         LOGGER.debug("Inside UserService.updateUser");
 
-        User userToUpdate = userRepository.findById(userId).orElseThrow(() ->
+        userRepository.findById(userId).orElseThrow(() ->
                 new ResourceNotFoundException("No user registered with this id"));
 
-        userToUpdate.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        userToUpdate.setFullname(userDTO.getFullname());
+        User userToUpdate = modelConverter.toUser(userDTO);
         userToUpdate.setId(userId);
-
+        userToUpdate.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User userUpdated = userRepository.save(userToUpdate);
 
         return dtoConverter.toUserDTO(userUpdated);

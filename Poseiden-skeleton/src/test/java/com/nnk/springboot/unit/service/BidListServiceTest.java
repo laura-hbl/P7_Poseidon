@@ -97,6 +97,8 @@ public class BidListServiceTest {
                 null, null, null);
         BidListDTO bidUpdatedDTO = new BidListDTO(1,"account1", "type1", BigDecimal.valueOf(100));
         when(bidListRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(bidList1));
+        when(modelConverter.toBidList(any(BidListDTO.class))).thenReturn(new BidList("account1", "type1",
+                BigDecimal.valueOf(100)));
         when(bidListRepository.save(any(BidList.class))).thenReturn(bidUpdated);
         when(dtoConverter.toBidListDTO(any(BidList.class))).thenReturn(bidUpdatedDTO);
 
@@ -104,8 +106,9 @@ public class BidListServiceTest {
                 BigDecimal.valueOf(100)));
 
         assertThat(result).isEqualTo(bidUpdatedDTO);
-        InOrder inOrder = inOrder(bidListRepository, dtoConverter);
+        InOrder inOrder = inOrder(bidListRepository, modelConverter, dtoConverter);
         inOrder.verify(bidListRepository).findById(anyInt());
+        inOrder.verify(modelConverter).toBidList(any(BidListDTO.class));
         inOrder.verify(bidListRepository).save(any(BidList.class));
         inOrder.verify(dtoConverter).toBidListDTO(any(BidList.class));
     }

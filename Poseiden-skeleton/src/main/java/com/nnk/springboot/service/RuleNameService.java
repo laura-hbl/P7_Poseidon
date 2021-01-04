@@ -76,8 +76,8 @@ public class RuleNameService implements IRuleNameService {
 
     /**
      * Checks if the given ruleName to update is registered by calling RuleNameRepository's findById method, if so
-     * ruleName found is updated, then saved to database by calling RuleNameRepository's save method and converted
-     * to a RuleNameDTO object. Else, ResourceNotFoundException is thrown.
+     * converts the RuleNameDTO object to a Trade object, then saved to database by calling RuleNameRepository's
+     * save method and converted to a RuleNameDTO object. Else, ResourceNotFoundException is thrown.
      *
      * @param ruleNameId  id of the ruleName to be updated
      * @param ruleNameDTO the ruleName to be updated
@@ -86,17 +86,12 @@ public class RuleNameService implements IRuleNameService {
     public RuleNameDTO updateRuleName(final int ruleNameId, final RuleNameDTO ruleNameDTO) {
         LOGGER.debug("Inside RuleNameService.updateRuleName");
 
-        RuleName ruleName = ruleNameRepository.findById(ruleNameId).orElseThrow(() ->
+        ruleNameRepository.findById(ruleNameId).orElseThrow(() ->
                 new ResourceNotFoundException("No ruleName registered with this id"));
 
-        ruleName.setName(ruleNameDTO.getName());
-        ruleName.setDescription(ruleNameDTO.getDescription());
-        ruleName.setTemplate(ruleNameDTO.getTemplate());
-        ruleName.setJson(ruleNameDTO.getJson());
-        ruleName.setSqlStr(ruleNameDTO.getSqlStr());
-        ruleName.setSqlPart(ruleNameDTO.getSqlPart());
-
-        RuleName ruleNameUpdated = ruleNameRepository.save(ruleName);
+        RuleName ruleNameToUpdate = modelConverter.toRuleName(ruleNameDTO);
+        ruleNameToUpdate.setId(ruleNameId);
+        RuleName ruleNameUpdated = ruleNameRepository.save(ruleNameToUpdate);
 
         return dtoConverter.toRuleNameDTO(ruleNameUpdated);
     }

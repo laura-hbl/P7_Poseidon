@@ -76,8 +76,8 @@ public class BidListService implements IBidListService {
 
     /**
      * Checks if the given bidList to update is registered by calling BidListRepository's findById method, if so
-     * bidList found is updated, then saved to database by calling BidListRepository's save method and converted
-     * to a BidListDTO object. Else, ResourceNotFoundException is thrown.
+     * converts the BidListDTO object to a BidList object, then saved to database by calling BidListRepository's
+     * save method and converted to a BidListDTO object. Else, ResourceNotFoundException is thrown.
      *
      * @param bidListId  id of the bidList to be updated
      * @param bidListDTO the bidList to be updated
@@ -86,14 +86,12 @@ public class BidListService implements IBidListService {
     public BidListDTO updateBidList(final int bidListId, final BidListDTO bidListDTO) {
         LOGGER.debug("Inside BidListService.updateBidList");
 
-        BidList bidList = bidListRepository.findById(bidListId).orElseThrow(() ->
+        bidListRepository.findById(bidListId).orElseThrow(() ->
                 new ResourceNotFoundException("No bidList registered with this id"));
 
-        bidList.setAccount(bidListDTO.getAccount());
-        bidList.setType(bidListDTO.getType());
-        bidList.setBidQuantity(bidListDTO.getBidQuantity());
-
-        BidList bidListUpdated = bidListRepository.save(bidList);
+        BidList bidListToUpdate = modelConverter.toBidList(bidListDTO);
+        bidListToUpdate.setId(bidListId);
+        BidList bidListUpdated = bidListRepository.save(bidListToUpdate);
 
         return dtoConverter.toBidListDTO(bidListUpdated);
     }

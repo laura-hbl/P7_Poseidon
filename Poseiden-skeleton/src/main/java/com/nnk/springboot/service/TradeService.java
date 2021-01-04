@@ -76,8 +76,8 @@ public class TradeService implements ITradeService {
 
     /**
      * Checks if the given trade to update is registered by calling TradeRepository's findById method, if so
-     * trade found is updated, then saved to database by calling TradeRepository's save method and converted to
-     * a TradeDTO object. Else, ResourceNotFoundException is thrown.
+     * converts the TradeDTO object to a Trade object, then saved to database by calling TradeRepository's save
+     * method and converted to a TradeDTO object. Else, ResourceNotFoundException is thrown.
      *
      * @param tradeId  id of the trade to be updated
      * @param tradeDTO the trade to be updated
@@ -86,14 +86,12 @@ public class TradeService implements ITradeService {
     public TradeDTO updateTrade(final int tradeId, final TradeDTO tradeDTO) {
         LOGGER.debug("Inside TradeService.updateTrade");
 
-        Trade trade = tradeRepository.findById(tradeId).orElseThrow(() ->
+        tradeRepository.findById(tradeId).orElseThrow(() ->
                 new ResourceNotFoundException("No trade registered with this id"));
 
-        trade.setAccount(tradeDTO.getAccount());
-        trade.setType(tradeDTO.getType());
-        trade.setBuyQuantity(tradeDTO.getBuyQuantity());
-
-        Trade tradeUpdated = tradeRepository.save(trade);
+        Trade tradeToUpdate = modelConverter.toTrade(tradeDTO);
+        tradeToUpdate.setId(tradeId);
+        Trade tradeUpdated = tradeRepository.save(tradeToUpdate);
 
         return dtoConverter.toTradeDTO(tradeUpdated);
     }

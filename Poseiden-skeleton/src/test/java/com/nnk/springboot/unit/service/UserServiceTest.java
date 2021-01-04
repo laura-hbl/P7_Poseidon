@@ -7,6 +7,7 @@ import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.UserRepository;
 import com.nnk.springboot.service.UserService;
 import com.nnk.springboot.util.DTOConverter;
+import com.nnk.springboot.util.ModelConverter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -41,6 +42,9 @@ public class UserServiceTest {
     @Mock
     private DTOConverter dtoConverter;
 
+    @Mock
+    private ModelConverter modelConverter;
+
     private static User user1;
 
     private static User user2;
@@ -65,15 +69,20 @@ public class UserServiceTest {
     @Tag("AddUser")
     @DisplayName("If user is not registered, when addUser, then user should be saved correctly")
     public void givenAnUnRegisteredUser_whenAddUser_thenUserShouldBeSavedCorrectly() {
+        User userToAdd = new User(1, "Laura", "HjuIY9jk5op&tc", "Laura", "USER");
+        UserDTO userToAddDTO = new UserDTO(1, "Laura", "HjuIY9jk5op&tc", "Laura",
+                "USER");
         when(userRepository.findByUsername(anyString())).thenReturn(null);
+        when(modelConverter.toUser(any(UserDTO.class))).thenReturn(new User("Laura", "passwordA111&",
+                "Laura", "USER"));
         when(passwordEncoder.encode(anyString())).thenReturn("HjuIY9jk5op&tc");
-        when(userRepository.save(any(User.class))).thenReturn(user1);
-        when(dtoConverter.toUserDTO(any(User.class))).thenReturn(user1DTO);
+        when(userRepository.save(any(User.class))).thenReturn(userToAdd);
+        when(dtoConverter.toUserDTO(any(User.class))).thenReturn(userToAddDTO);
 
         UserDTO userSaved = userService.addUser(new UserDTO("Laura", "passwordA111&",
                 "Laura", "USER"));
 
-        assertThat(userSaved).isEqualToComparingFieldByField(user1DTO);
+        assertThat(userSaved).isEqualToComparingFieldByField(userToAddDTO);
         InOrder inOrder = inOrder(userRepository, passwordEncoder, dtoConverter);
         inOrder.verify(userRepository).findByUsername(anyString());
         inOrder.verify(passwordEncoder).encode(anyString());
@@ -94,10 +103,12 @@ public class UserServiceTest {
     @Tag("UpdateUser")
     @DisplayName("Given a registered User, when updateUser, then User should be updated correctly")
     public void givenARegisteredUser_whenUpdateUser_thenUserShouldBeUpdateCorrectly() {
-        User userUpdated = new User(1, "Laura", "passwordA111&", "LauraHbl", "USER");
-        UserDTO userUpdatedDTO = new UserDTO(1, "Laura", "passwordA111&", "LauraHbl",
+        User userUpdated = new User(1, "Laura", "HjuIY9jk5op&tc&", "LauraHbl", "USER");
+        UserDTO userUpdatedDTO = new UserDTO(1, "Laura", "HjuIY9jk5op&tc", "LauraHbl",
                 "USER");
         when(userRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(user1));
+        when(modelConverter.toUser(any(UserDTO.class))).thenReturn(new User("Laura", "passwordA111&",
+                "LauraHbl", "USER"));
         when(passwordEncoder.encode(anyString())).thenReturn("HjuIY9jk5op&tc");
         when(userRepository.save(any(User.class))).thenReturn(userUpdated);
         when(dtoConverter.toUserDTO(any(User.class))).thenReturn(userUpdatedDTO);
@@ -106,8 +117,9 @@ public class UserServiceTest {
                 "LauraHbl", "USER"));
 
         assertThat(result).isEqualTo(userUpdatedDTO);
-        InOrder inOrder = inOrder(userRepository, passwordEncoder, dtoConverter);
+        InOrder inOrder = inOrder(userRepository, modelConverter, passwordEncoder, dtoConverter);
         inOrder.verify(userRepository).findById(anyInt());
+        inOrder.verify(modelConverter).toUser(any(UserDTO.class));
         inOrder.verify(passwordEncoder).encode(anyString());
         inOrder.verify(userRepository).save(any(User.class));
         inOrder.verify(dtoConverter).toUserDTO(any(User.class));
