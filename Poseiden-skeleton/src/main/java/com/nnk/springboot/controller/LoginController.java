@@ -105,7 +105,7 @@ public class LoginController {
     @PostMapping("/signin")
     public String authenticateUser(@Valid final LoginDTO loginDTO, final BindingResult result,
                                    final HttpServletResponse response) {
-        LOGGER.debug("GET Request on /signin");
+        LOGGER.debug("POST Request on /signin");
 
         if (result.hasErrors()) {
             LOGGER.error("Error(s): {}", result);
@@ -124,7 +124,7 @@ public class LoginController {
         cookie.setMaxAge(cookieExpirationSec);
         response.addCookie(cookie);
 
-        LOGGER.info("GET Request on /signin - SUCCESS");
+        LOGGER.info("POST Request on /signin - SUCCESS");
         return "redirect:/bidList/list";
     }
 
