@@ -37,7 +37,7 @@
                       th:errors="*{template}"></span>
             </p>
             <p>
-                Sql: <br/> <input type="text" th:field="*{sqlStr}"/><br/>
+                SqlStr: <br/> <input type="text" th:field="*{sqlStr}"/><br/>
                 <span style="color: red;" th:if="${#fields.hasErrors('sqlStr')}"
                       th:errors="*{sqlStr}"></span>
             </p>

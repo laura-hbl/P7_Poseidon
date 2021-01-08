@@ -132,14 +132,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                                       final Authentication authentication) throws IOException {
         LOGGER.debug("Inside SecurityConfiguration's logoutSuccessHandler method");
 
+        // Retrieves the current cookie
         Cookie cookie = WebUtils.getCookie(request, "Token");
         if (cookie != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
+            // Invalidates the cookie
             cookie.setValue(null);
             cookie.setMaxAge(0);
             cookie.setPath("/");
-            cookie.setHttpOnly(true);
             response.addCookie(cookie);
+            // Redirects to home page after logout
             response.sendRedirect(request.getContextPath() + "?logout");
         }
     }
@@ -158,8 +160,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
 
         if (e.getMessage().contains("Bad credentials")) {
+            // Redirects to login page with error message if bad credentials
             response.sendRedirect("/login?error");
         } else {
+            // Redirects to home page with error message if user is not authenticated
             response.sendRedirect("/?error");
         }
     }

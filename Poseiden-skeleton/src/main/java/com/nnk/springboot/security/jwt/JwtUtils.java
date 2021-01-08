@@ -66,7 +66,8 @@ public class JwtUtils {
     }
 
     /**
-     * Validates a JWT.
+     * Validates a JWT by using the jwtSecret property to generate the signing key, and uses that to verify that
+     * the JWT has not been tampered with.
      *
      * @param authToken the JWT to validate
      * @return True if the JWT is valid or false is not valid
@@ -75,6 +76,7 @@ public class JwtUtils {
         LOGGER.debug("Inside JwtUtils's validateJwtToken method");
 
         try {
+            // This line will throw an exception if it is not a signed JWS (as expected)
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {

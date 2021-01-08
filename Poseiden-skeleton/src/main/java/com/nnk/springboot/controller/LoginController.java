@@ -35,7 +35,7 @@ public class LoginController {
     private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
 
     /**
-     * Cookie expiration time in seconds.
+     * Time in seconds before the cookie expires.
      */
     @Value("${poseidon.app.cookieExpirationSec}")
     private int cookieExpirationSec;
@@ -111,11 +111,14 @@ public class LoginController {
             LOGGER.error("Error(s): {}", result);
             return "/login";
         }
+        // Authenticates the user
         Authentication authentication = auth.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
 
+        // Generates a json web token
         String jwt = jwtUtils.generateJwtToken(authentication);
 
+        // Creates a cookie and secures it
         Cookie cookie = new Cookie("Token", jwt);
         cookie.setHttpOnly(true);
         cookie.setMaxAge(cookieExpirationSec);
