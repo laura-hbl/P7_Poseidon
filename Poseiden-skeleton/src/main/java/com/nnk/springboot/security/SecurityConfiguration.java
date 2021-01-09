@@ -112,12 +112,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .antMatchers("/user/**", "/admin/**").hasAuthority("ADMIN")
                 .anyRequest().permitAll()
-                .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().logoutSuccessHandler(this::logoutSuccessHandler).permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling().authenticationEntryPoint(this::authenticationEntryPointHandler)
                 .and().exceptionHandling().accessDeniedHandler(this::accessDeniedHandler);
 
+        // For each api the filter has been added with above http request condition
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 

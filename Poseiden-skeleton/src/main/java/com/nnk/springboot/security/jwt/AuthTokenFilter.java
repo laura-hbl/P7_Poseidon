@@ -45,8 +45,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     /**
      * Gets JWT from the request cookie, if the request has JWT, validate it and parse username from it. Then from
-     * username, get UserDetails to create an Authentication object and set the current UserDetails in SecurityContext
-     * using setAuthentication(authentication) method.
+     * username, get UserDetails to create an Authentication object and set the current Authentication object in
+     * SecurityContext using setAuthentication(authentication) method.
      *
      * @param request     HttpServletRequest reference
      * @param response    HttpServletResponse reference
@@ -73,7 +73,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
 
-                // Sets the current UserDetails in SecurityContext
+                // Sets the current Authentication in SecurityContext
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
