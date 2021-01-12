@@ -127,16 +127,4 @@ public class LoginController {
         LOGGER.info("POST Request on /signin - SUCCESS");
         return "redirect:/bidList/list";
     }
-
-    /**
-     * Displays the 403 error page.
-     *
-     * @return The reference to the 403 HTML page
-     */
-    @GetMapping("/403")
-    public String showError403() {
-        LOGGER.debug("GET Request on /403");
-
-        return "/403";
-    }
 }

@@ -180,6 +180,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             throws IOException {
         LOGGER.error("Access denied error: {}", e.getMessage());
 
+        response.setStatus(HttpStatus.FORBIDDEN.value());
         response.sendRedirect("/403");
     }
 }

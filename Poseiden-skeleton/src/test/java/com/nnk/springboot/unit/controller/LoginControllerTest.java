@@ -87,7 +87,7 @@ public class LoginControllerTest {
     void givenEmptyUsernameField_whenAuthenticateUser_thenReturnErrorMessageAndLoginPage() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/signin")
                 .accept(MediaType.ALL)
-                .param("username","")
+                .param("username", "")
                 .param("password", loginDTO.getPassword()))
                 .andExpect(model().hasErrors())
                 .andExpect(view().name("/login"))
@@ -96,14 +96,5 @@ public class LoginControllerTest {
         String content = result.getResponse().getContentAsString();
 
         assertThat(content).contains("Username is mandatory");
-    }
-
-    @Test
-    @Tag("ShowError403")
-    @DisplayName("When showError403 request, then display error page")
-    public void whenErrorRequest_thenDisplayError403Page() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/403"))
-                .andExpect(view().name("/403"))
-                .andExpect(status().isOk());
     }
 }

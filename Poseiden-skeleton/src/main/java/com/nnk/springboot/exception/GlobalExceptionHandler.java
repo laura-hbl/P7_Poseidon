@@ -37,4 +37,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         response.setStatus(HttpStatus.CONFLICT.value());
         response.sendRedirect("/user/add?error");
     }
+
+    /**
+     * Handles exception of the specific type ResourceNotFoundException.
+     *
+     * @param ex       ResourceNotFoundException object
+     * @param response HttpServletResponse object
+     */
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public void handleNotFound(final ResourceNotFoundException ex, final HttpServletResponse response)
+            throws IOException {
+        LOGGER.error("Request - FAILED :", ex);
+
+        response.setStatus(HttpStatus.NOT_FOUND.value());
+        response.sendRedirect("/404");
+    }
 }
