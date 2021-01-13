@@ -105,7 +105,7 @@ public class LoginController {
     @PostMapping("/signin")
     public String authenticateUser(@Valid final LoginDTO loginDTO, final BindingResult result,
                                    final HttpServletResponse response) {
-        LOGGER.debug("POST Request on /signin");
+        LOGGER.debug("POST Request on /signin from user : {}", loginDTO.getUsername());
 
         if (result.hasErrors()) {
             LOGGER.error("Error(s): {}", result);
